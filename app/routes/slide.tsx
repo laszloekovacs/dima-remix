@@ -61,6 +61,36 @@ export default function Slide({ loaderData }: Route.ComponentProps) {
             <div>
                 <img src={src ?? null} alt={src ?? "missing file"} width="100%" />
             </div>
+            <CodeFlash files={files} />
         </div>
     )
+}
+
+
+
+
+const CodeFlash = ({ files }: { files: string[] }) => {
+    const [code, setCode] = useState<string[]>([])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            // generate an array of random strings 
+            const randomStrings = Array.from({ length: 8 }, () =>
+                Math.random().toString(36).slice(2)
+            );
+
+            setCode(randomStrings)
+        }, 600)
+
+        return () => clearInterval(interval)
+    }, [])
+
+    return (
+        <ul>
+            {code.map((c) => (
+                <li>{c}</li>
+            ))}
+        </ul>
+    )
+
 }
