@@ -1,9 +1,23 @@
 :root {
     --main-bg-color: #000;
     --main-fg-color: #fff;
+    --main-theme-color: #ff9900;
 }
 
 body {
     color: var(--main-fg-color);
     background-color: var(--main-bg-color);
+}
+
+input, input:focus {
+    border: 1px;
+    border-color: var(--main-fg-color);
+    border-style: solid;
+    border-radius: 0px;
+    background-color: var(--main-bg-color);
+    color: inherit;
+}
+
+input:focus {
+    outline-style: none;
 }
