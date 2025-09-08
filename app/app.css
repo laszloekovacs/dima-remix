@@ -15,11 +15,12 @@ body {
     color: var(--main-fg-color);
     background-color: var(--main-bg-color);
     font-family: 'IBM Plex Mono', monospace;
-    font-size: larger;
+    font-size: 32px;
 }
 
 
 input, input:focus {
+    font: inherit;
     border: 1px;
     border-color: var(--main-fg-color);
     border-style: solid;
