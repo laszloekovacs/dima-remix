@@ -1,7 +1,7 @@
 :root {
     --main-bg-color: #000;
     --main-fg-color: #ca2828;
-    --main-theme-color: #ecca07;
+    --main-theme-color: #ec0f07;
 }
 
 *, *::after, *::before {
@@ -21,7 +21,7 @@ body {
 
 input, input:focus {
     font: inherit;
-    border: 1px;
+    border: 2px;
     border-color: var(--main-fg-color);
     border-style: solid;
     border-radius: 0px;
@@ -38,3 +38,4 @@ input:focus {
 img {
     filter: sepia(70%);
 }
+
