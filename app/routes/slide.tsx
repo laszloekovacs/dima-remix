@@ -1,13 +1,13 @@
 import { readdir } from "node:fs/promises"
 import type { Route } from "./+types/slide"
 import { useEffect, useState } from "react"
-
-const path = "./public/slides"
+import styles from "../slide.module.css"
 
 
 export async function loader() {
     // gererate a list of file names in the slides folder
     try {
+        const path = "./public/slides"
         const files = await readdir(path)
 
         for (const file of files)
@@ -44,7 +44,7 @@ export default function Slide({ loaderData }: Route.ComponentProps) {
 
                 return next
             })
-        }, 1000);
+        }, 2000);
 
         return () => clearInterval(interval)
     }, [files])
@@ -52,8 +52,15 @@ export default function Slide({ loaderData }: Route.ComponentProps) {
     const src = resolvePath(files[index])
 
     return (
-        <div>
-            <img src={src ?? null} alt={src ?? "missing file"} />
+        <div className={styles.container}>
+            <div className={styles.dialog_container}>
+                <div className={styles.dialog}>
+                    <p>Keresés: kulcsszó</p>
+                </div>
+            </div>
+            <div>
+                <img src={src ?? null} alt={src ?? "missing file"} width="100%" />
+            </div>
         </div>
     )
 }
