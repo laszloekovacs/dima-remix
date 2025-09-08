@@ -1,7 +1,7 @@
 :root {
     --main-bg-color: #000;
-    --main-fg-color: #fff;
-    --main-theme-color: #ff3300;
+    --main-fg-color: #ca2828;
+    --main-theme-color: #ecca07;
 }
 
 *, *::after, *::before {
@@ -33,4 +33,8 @@ input, input:focus {
 
 input:focus {
     outline-style: none;
+}
+
+img {
+    filter: sepia(70%);
 }
