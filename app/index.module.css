@@ -1,0 +1,6 @@
+.layout {
+    display: grid;
+    height: 100dvh;
+    width: 100dvw;
+    place-content: center;
+}
