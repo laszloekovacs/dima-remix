@@ -37,5 +37,6 @@ input:focus {
 
 img {
     filter: sepia(70%);
+    max-width: 100%;
 }
 

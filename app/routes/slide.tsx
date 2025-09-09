@@ -2,6 +2,7 @@ import { readdir } from "node:fs/promises"
 import type { Route } from "./+types/slide"
 import { useEffect, useState } from "react"
 import styles from "../slide.module.css"
+import { useSearchParams } from "react-router"
 
 
 export async function loader() {
@@ -31,7 +32,7 @@ const resolvePath = (filename: string) => {
 export default function Slide({ loaderData }: Route.ComponentProps) {
     const files = loaderData
     const [index, setIndex] = useState(() => Math.floor(Math.random() * files.length))
-
+    const [query, setQuery] = useSearchParams()
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -55,11 +56,11 @@ export default function Slide({ loaderData }: Route.ComponentProps) {
         <div className={styles.container}>
             <div className={styles.dialog_container}>
                 <div className={styles.dialog}>
-                    <p>Keresés: kulcsszó</p>
+                    <p>Keresés: {query.get("q") ?? "keresés"}</p>
                 </div>
             </div>
             <div>
-                <img src={src ?? null} alt={src ?? "missing file"} width="100%" />
+                <img src={src ?? null} alt={src ?? "missing file"} />
             </div>
             <CodeFlash files={files} />
         </div>
