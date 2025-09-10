@@ -1,7 +1,7 @@
 :root {
     --main-bg-color: #000;
-    --main-fg-color: #ca2828;
-    --main-theme-color: #ec0f07;
+    --main-fg-color: #eece16;
+    --main-theme-color: #eca307;
 }
 
 *, *::after, *::before {

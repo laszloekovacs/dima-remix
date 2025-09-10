@@ -1,5 +1,12 @@
 # Welcome to React Router!
 
+TODO
+- boot screen and lock screen
+- lockdown on 3 bad passes
+- document screen with copy to pendrive
+- more sovietpunk asthetics
+
+
 A modern, production-ready template for building full-stack React applications using React Router.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
