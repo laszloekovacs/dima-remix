@@ -4,30 +4,23 @@ export default function LockdownScreen() {
     const [countdown, setCountdown] = useState<Date | null>(null);
 
     useEffect(() => {
-        // Initialize countdown to 3 seconds from now if not set
+        // Initialize countdown to x seconds from now if not set
         if (!countdown) {
-            setCountdown(new Date(Date.now() + 3000));
-            return;
+            setCountdown(new Date(Date.now() + 5000));
+        } else {
+
+
+            const timer = setInterval(() => {
+                const now = new Date();
+                if (countdown.getTime() <= now.getTime()) {
+                    setCountdown(null);
+                    clearInterval(timer);
+                    window.location.href = "/";
+                }
+            }, 200);
+
+            return () => clearInterval(timer);
         }
-
-        const timer = setInterval(() => {
-            const now = new Date();
-            if (countdown.getTime() <= now.getTime()) {
-                setCountdown(null);
-                clearInterval(timer);
-            } else {
-                // Force update by setting a new Date object (to trigger re-render)
-                setCountdown(new Date(countdown.getTime()));
-            }
-        }, 1000);
-
-        // if countdown older than now, redirect to index
-        if (countdown.getTime() <= Date.now()) {
-            window.location.href = "/";
-        }
-
-
-        return () => clearInterval(timer);
     }, [countdown]);
 
     return (
