@@ -63,7 +63,7 @@ export async function action({ request }: Route.ActionArgs) {
   console.log(`login attempt, ${attempts}`)
 
   if (passcode == "5435") {
-    return redirect("main")
+    return redirect("boot")
   }
 
   if (attempts <= 1) {
