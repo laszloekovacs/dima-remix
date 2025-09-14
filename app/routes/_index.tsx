@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { Route } from "./+types/_index";
 import { Form, redirect } from "react-router";
-import styles from "../index.module.css"
+
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -25,7 +25,7 @@ export default function Home() {
 
 
   return (
-    <div className={styles.layout}>
+    <div>
       <div>
         DIMA
       </div>

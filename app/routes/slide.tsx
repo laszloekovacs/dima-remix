@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises"
 import type { Route } from "./+types/slide"
 import { useEffect, useState } from "react"
-import styles from "../slide.module.css"
+
 import { useSearchParams } from "react-router"
 
 
@@ -53,9 +53,9 @@ export default function Slide({ loaderData }: Route.ComponentProps) {
     const src = resolvePath(files[index])
 
     return (
-        <div className={styles.container}>
-            <div className={styles.dialog_container}>
-                <div className={styles.dialog}>
+        <div>
+            <div>
+                <div>
                     <p>Keresés: {query.get("q") ?? "keresés"}</p>
                 </div>
             </div>
