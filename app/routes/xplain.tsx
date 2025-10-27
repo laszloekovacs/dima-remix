@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import type { Route } from "./+types/xplain"
-import { Form, useActionData } from "react-router"
+import { Form, Link, NavLink, Outlet, useActionData } from "react-router"
 
 /*
 export async function loader({ params }: Route.LoaderArgs) {
@@ -57,6 +57,11 @@ export default function ExamplePage({ loaderData }: Route.ComponentProps) {
 
     return (
         <div>
+            <Link to="/" className="bg-amber-400">vissza a folapra</Link>
+            <NavLink to="inner" className="bg-neutral-200">belso lap</NavLink>
+            <NavLink to="/xplain" className="bg-amber-200">kulso lap</NavLink>
+            <hr />
+
             <h1>Hello world</h1>
             <p>{message}</p>
 
@@ -66,6 +71,9 @@ export default function ExamplePage({ loaderData }: Route.ComponentProps) {
             </Form>
 
             <p>action data is: {data?.value} </p>
+
+
+            <Outlet />
         </div>
     )
 }
