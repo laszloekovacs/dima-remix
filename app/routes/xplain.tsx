@@ -1,25 +1,42 @@
 import { useEffect } from "react"
 import type { Route } from "./+types/xplain"
+import { Form, useActionData } from "react-router"
 
+/*
 export async function loader({ params }: Route.LoaderArgs) {
     console.log("server loader")
 
     return {
-        message: "hello from loader"
+        message: "data from server loader"
+    }
+}
+*/
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
+    // pl fetch
+    return {
+        message: "data from client Loader"
     }
 }
 
 
-export async function action({ params }: Route.ActionArgs) {
+export async function action({ params, request }: Route.ActionArgs) {
     console.log("server action")
 
+    const formdata = await request.formData()
+    const intent = formdata.get("intent")
+
+    console.log(`intent was: ${intent}`)
+
+    const random = Math.floor(Math.random() * 256)
+
     return {
-        status: "ok"
+        value: random
     }
 }
 
 
 export function HydrateFallback() {
+    console.log("hydrating...")
     return (
         <div>
             <p>loading...</p>
@@ -28,7 +45,10 @@ export function HydrateFallback() {
 }
 
 
-export default function ExamplePage() {
+export default function ExamplePage({ loaderData }: Route.ComponentProps) {
+    const { message } = loaderData
+    const data = useActionData()
+
     console.log("page component")
 
     useEffect(() => {
@@ -38,6 +58,14 @@ export default function ExamplePage() {
     return (
         <div>
             <h1>Hello world</h1>
+            <p>{message}</p>
+
+            <Form method="post">
+                <input type="hidden" value="generate" name="intent" />
+                <button className="border-2 p-2">increase</button>
+            </Form>
+
+            <p>action data is: {data?.value} </p>
         </div>
     )
 }
