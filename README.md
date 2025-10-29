@@ -8,7 +8,7 @@ TODO
 
 https://www.npmjs.com/package/react-hotkeys-hook/v/4.0.7
 
-
-login -> boot -> drive select -> download
+Sequence of pages:
+login -> boot -> drive select -> download seq -> completion -> login
 |
--> lockdown
+-> lockdown -> login
