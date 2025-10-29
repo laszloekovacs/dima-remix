@@ -1,4 +1,13 @@
+import { useEffect, useRef } from "react"
+
 const LoginPage = () => {
+	const passcodeRef = useRef<HTMLInputElement | null>(null)
+
+	// focus to passcode input
+	useEffect(() => {
+		passcodeRef.current?.focus()
+	}, [])
+
 	return (
 		<div className="min-h-screen bg-black text-green-500 flex items-center justify-center p-6 font-mono">
 			<div className="w-full max-w-xl border border-green-700 p-6">
@@ -15,6 +24,7 @@ const LoginPage = () => {
 						Belépőkód megadása:
 					</label>
 					<input
+						ref={passcodeRef}
 						type="password"
 						id="passcode"
 						className="w-full bg-black border border-green-500 text-green-500 px-3 py-2 font-[Share_Tech_Mono] focus:outline-none focus:ring-2 focus:ring-green-700"
