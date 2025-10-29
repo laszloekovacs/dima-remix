@@ -1,12 +1,12 @@
 const LoginPage = () => {
 	return (
-		<div className="min-h-screen bg-black text-green-500 flex items-center justify-center p-6">
+		<div className="min-h-screen bg-black text-green-500 flex items-center justify-center p-6 font-mono">
 			<div className="w-full max-w-xl border border-green-700 p-6">
 				{/* Fejléc */}
 				<div className="text-sm mb-4">
 					<h1 className="text-6xl mb-2">Д.И.М.А 3850</h1>
 					<p>Департамент Исследований и Мобильного Архива</p>
-					<p>Információs adat központ terminál</p>
+					<p>távoli adat központ terminál</p>
 				</div>
 
 				{/* Bejelentkezés */}

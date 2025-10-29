@@ -7,3 +7,8 @@ TODO
 - more sovietpunk asthetics
 
 https://www.npmjs.com/package/react-hotkeys-hook/v/4.0.7
+
+
+login -> boot -> drive select -> download
+|
+-> lockdown
