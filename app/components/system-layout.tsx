@@ -8,7 +8,7 @@ const SystemLayout = (props: PropType) => {
 	const { heading, main, commandLine } = props
 
 	return (
-		<div className="grid grid-rows-[1fr-auto-1fr] w-screen h-screen">
+		<div className="grid grid-rows-[auto-1fr-auto] w-screen h-screen">
 			<div>{heading}</div>
 			<div>{main}</div>
 			<div>{commandLine}</div>
