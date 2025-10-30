@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root"
 import "./app.css"
+import AmbientSound from "./components/ambient-sound"
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -34,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				{children}
-
+				<AmbientSound />
 				<ScrollRestoration />
 				<Scripts />
 			</body>
