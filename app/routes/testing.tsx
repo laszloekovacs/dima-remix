@@ -7,7 +7,7 @@ export default function TestingRoute(): React.ReactNode {
       <SystemLayout
         heading={
           <div className="warning-stripes background-animation">
-            hello world
+            предупреждение, нарушение
           </div>
         }
         main={<div>main content</div>}
