@@ -32,3 +32,23 @@
 	}
 }
 
+@keyframes blinkInverted {
+	from {
+		filter: opacity(100%)
+	}
+	to {
+		filter: opacity(0%)
+	}
+}
+
+.blink-slow {
+	animation: blinkInverted 1000ms steps(2, jump-both) infinite;
+}
+
+.blink-fast {
+	animation: blinkInverted 300ms steps(2, jump-both) infinite;
+}
+
+.terminalify {
+	filter: grayscale(1) sepia(1) hue-rotate(310deg) saturate(3);
+}

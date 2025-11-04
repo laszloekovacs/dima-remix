@@ -10,7 +10,14 @@ export default function TestingRoute(): React.ReactNode {
             предупреждение, нарушение
           </div>
         }
-        main={<div>main content</div>}
+        main={
+          <div>
+            <div className="terminalify">
+              <img src="https://www.picsum.dev/400/300" alt="temp" />
+            </div>
+            <p className="blink-slow">very cool</p>
+          </div>
+        }
         commandLine={<div>commands</div>}
       />
     </div>
