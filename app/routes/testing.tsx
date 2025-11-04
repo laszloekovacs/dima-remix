@@ -4,9 +4,15 @@ import TapeStatusIndiactor from "~/components/tape-status"
 export default function TestingRoute(): React.ReactNode {
 	return (
 		<div>
-			<div className="warning-stripes background-animation">hello world</div>
-
-			<TapeStatusIndiactor />
+			<SystemLayout
+				heading={
+					<div className="warning-stripes background-animation">
+						hello world
+					</div>
+				}
+				main={<div>main content</div>}
+				
+			/>
 		</div>
 	)
 }
