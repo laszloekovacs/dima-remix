@@ -1,18 +1,12 @@
-type PropsType = {
-	// eg. node-13
-	label: string
-	// status after initializing
-	statusText: string
-	// serial that the user can input
-	serial: number
-}
+import { useEffect, useRef, useState } from "react"
+import { gsap } from "gsap"
+import { useGSAP } from "@gsap/react"
 
-export default function TapeStatusIndicator({ props }: { props: PropsType }) {
-	return (
-		<div>
-			<p>{props.serial}</p>
-			<p>{props.label}</p>
-			<p>{props.statusText}</p>
-		</div>
-	)
+export default function TapeStatusIndiactor() {
+	gsap.registerPlugin(useGSAP)
+	const timeline = useRef<gsap.core.Timeline>(null)
+
+	useGSAP(() => {})
+
+	return <div></div>
 }
