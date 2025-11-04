@@ -12,7 +12,7 @@ export default function TestingRoute(): React.ReactNode {
         }
         main={
           <div>
-            <div className="terminal">
+            <div>
               <img src="https://www.picsum.dev/400/300" alt="temp" />
             </div>
             <p className="blink-slow">very cool</p>
