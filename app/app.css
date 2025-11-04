@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-	--color-theme-light: orangered;
-	--color-theme-dark: black;
-	--color-theme-contrast: #440E03;
-}
-
 .warning-stripes {
 	width: 100%;
 	height: 100%;
@@ -13,8 +7,8 @@
 		45deg,
 		black,
 		black 10px,
-		var(--color-theme-contrast) 10px,
-		var(--color-theme-contrast) 20px
+		white 10px,
+		white 20px
 	);
 	background-size: 28px 28px;
 }
@@ -34,10 +28,10 @@
 
 @keyframes blinkInverted {
 	from {
-		filter: opacity(100%)
+		filter: opacity(100%);
 	}
 	to {
-		filter: opacity(0%)
+		filter: opacity(0%);
 	}
 }
 

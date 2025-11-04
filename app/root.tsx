@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root"
 import "./app.css"
+import SystemColors from "./components/system-colors"
 import SystemKeys from "./components/system-keys"
 
 export const links: Route.LinksFunction = () => [
@@ -34,7 +35,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <SystemKeys>{children}</SystemKeys>
+        <SystemColors>
+          <SystemKeys>{children}</SystemKeys>
+        </SystemColors>
         <ScrollRestoration />
         <Scripts />
       </body>
