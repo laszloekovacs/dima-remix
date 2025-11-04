@@ -49,6 +49,6 @@
 	animation: blinkInverted 300ms steps(2, jump-both) infinite;
 }
 
-.terminalify {
+.terminal {
 	filter: grayscale(1) sepia(1) hue-rotate(310deg) saturate(3);
 }
