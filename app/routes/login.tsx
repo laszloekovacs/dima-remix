@@ -34,6 +34,10 @@ const LoginPage = () => {
     // compare codes
     if (passcode === passcodeRef.current?.value) {
       console.log("Access granted")
+
+      // reset retries, no need but good to do
+      localStorage.setItem("passcode.count", "3")
+
       navigate("/boot")
     } else {
       // decrease retries count
