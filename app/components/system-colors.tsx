@@ -5,7 +5,5 @@ export default function SystemColors({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className="uppercase terminal bg-black text-white">{children}</div>
-  )
+  return <div className="terminal bg-black text-white">{children}</div>
 }

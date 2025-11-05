@@ -14,6 +14,9 @@ const DetailsScreen = () => {
   return (
     <div>
       <p>Kiválasztott szalag: "Химера"</p>
+      <p>загруженные данные: 452Kb</p>
+
+      <p>Внимание! Память практически исчерпана</p>
     </div>
   )
 }
