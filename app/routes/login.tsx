@@ -46,7 +46,7 @@ const LoginPage = () => {
       console.log("Access denied - lockout")
       navigate("/lockout")
     }
-  }, [count])
+  }, [count, navigate])
 
   return (
     <div className="min-h-screen bg-black text-green-500 flex items-center justify-center p-6 font-mono">
