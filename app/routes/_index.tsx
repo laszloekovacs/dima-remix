@@ -12,13 +12,18 @@ export default function Home() {
 
   useEffect(() => {
     buttonRef.current?.focus()
-  })
+  }, [])
 
   return (
     <div className="min-h-screen min-w-screen grid place-content-center">
       <div className="text-sm">
         <p>DIMA távoli adatelérés terminál</p>
-        <button type="button" onClick={handleClick} ref={buttonRef}>
+        <button
+          type="button"
+          onClick={handleClick}
+          ref={buttonRef}
+          onBlur={() => buttonRef.current?.focus()}
+        >
           folytatáshoz nyomjon meg egy billentyűt
         </button>
       </div>

@@ -70,6 +70,7 @@ const LoginPage = () => {
               id="passcode"
               className="w-full bg-black border border-green-500 text-green-500 px-3 py-2 font-[Share_Tech_Mono] focus:outline-none focus:ring-2 focus:ring-green-700"
               placeholder="••••••••"
+              onBlur={() => passcodeRef.current?.focus()}
             />
           </Form>
           <p className="text-xs mt-2">Hátralévő próbálkozások: {count}</p>
