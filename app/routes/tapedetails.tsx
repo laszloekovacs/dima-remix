@@ -29,8 +29,8 @@ const DetailsScreen = () => {
 const KeyCommands = () => {
   const navigate = useNavigate()
 
-  useHotkeys("1", () => navigate("/startcopy"))
-  useHotkeys("2", () => navigate("/print"))
+  useHotkeys("1", () => navigate("/print"))
+  useHotkeys("2", () => navigate("/startcopy"))
 
   return (
     <div>
