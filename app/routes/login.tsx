@@ -5,12 +5,13 @@ const DEFAULT_PASSCODE = "5435" //86426
 
 const LoginPage = () => {
   const passcodeRef = useRef<HTMLInputElement | null>(null)
-  const [count, setCount] = useState<number>(0)
+  const [count, setCount] = useState<number>(3)
   const navigate = useNavigate()
+  const [hadFail, setFail] = useState<boolean>(false)
 
   // get localStorage value on client side only, useState is set on ssr too!
   useEffect(() => {
-    const stored = Number(localStorage.getItem("passcode.count")) ?? 2
+    const stored = Number(localStorage.getItem("passcode.count")) || count
     setCount(stored)
   })
 
@@ -23,6 +24,9 @@ const LoginPage = () => {
   const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     // prevent sending it to backend
     e.preventDefault()
+
+    // prevent submitting on empty value
+    if (!passcodeRef.current?.value) return
 
     // use the local stored one or default
     const passcode = localStorage.getItem("dima.passcode") ?? DEFAULT_PASSCODE
@@ -37,6 +41,9 @@ const LoginPage = () => {
         localStorage.setItem("passcode.count", newCount.toString())
         return newCount
       })
+
+      // display a warning
+      setFail(true)
     }
   }, [])
 
@@ -73,7 +80,9 @@ const LoginPage = () => {
               onBlur={() => passcodeRef.current?.focus()}
             />
           </Form>
-          <p className="text-xs mt-2">Hátralévő próbálkozások: {count}</p>
+          {hadFail && (
+            <p>sikertelen belépés! Hátralévő próbálkozások: {count}</p>
+          )}
         </div>
 
         {/* Lábjegyzet */}
