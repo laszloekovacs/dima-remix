@@ -1,3 +1,11 @@
+import SystemLayout from "~/components/system-layout"
+
 export default function TapeSelectionScreen() {
-	return <p>tape details</p>
+  return (
+    <SystemLayout
+      heading={<p>dima</p>}
+      main={<div>hello</div>}
+      commandLine={<p>commands</p>}
+    />
+  )
 }
