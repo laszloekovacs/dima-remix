@@ -22,6 +22,7 @@ export function useCountdownTimer({
       const remaining = getRemainingTime(targetDate)
       setTimeLeft(remaining)
 
+      // trigger callback when time goes to 0
       if (remaining.getTime() <= 0) {
         onComplete?.()
         return

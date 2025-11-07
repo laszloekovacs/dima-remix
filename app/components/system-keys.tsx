@@ -9,7 +9,9 @@ export default function SystemKeys({
 }) {
   const navigate = useNavigate()
 
-  useHotkeys("ctrl+0", () => navigate("/settings"))
+  useHotkeys("alt+0", () => navigate("/settings"), {
+    preventDefault: true,
+  })
 
   return <div>{children}</div>
 }

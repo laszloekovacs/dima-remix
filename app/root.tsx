@@ -41,9 +41,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <SystemColors>
           {isNavigating ? (
-            <SystemKeys>{children}</SystemKeys>
-          ) : (
             <div>loading</div>
+          ) : (
+            <SystemKeys>{children}</SystemKeys>
           )}
         </SystemColors>
         <ScrollRestoration />
