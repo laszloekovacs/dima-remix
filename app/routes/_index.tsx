@@ -24,7 +24,7 @@ export default function Home() {
           ref={buttonRef}
           onBlur={() => buttonRef.current?.focus()}
         >
-          folytatáshoz nyomjon meg egy billentyűt
+          folytatáshoz nyomja meg az Enter-t
         </button>
       </div>
     </div>
