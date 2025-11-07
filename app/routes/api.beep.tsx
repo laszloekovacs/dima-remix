@@ -1,7 +1,8 @@
 import os from "node:os"
 
-import type { Route } from "./+types/api.beep"
 import { useFetcher } from "react-router"
+import { asyncExec } from "~/utils/exec.server"
+import type { Route } from "./+types/api.beep"
 
 export async function action({ request }: Route.ActionArgs) {
   const data = await request.formData()
@@ -13,7 +14,7 @@ export async function action({ request }: Route.ActionArgs) {
   // only try to call on linux
   if (os.platform() !== "linux") return
 
-  return
+  await asyncExec("beep -f 500")
 }
 export async function loader() {}
 
