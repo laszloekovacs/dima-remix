@@ -1,1 +1,0 @@
-import{p as s}from"./chunk-UIGDSWPH-BRFJvEw1.js";const t=e=>{const{heading:r,main:n,commandLine:a}=e;return s.jsxs("div",{className:"grid grid-rows-[auto_1fr_auto] min-w-screen min-h-screen p-4 gap-2",children:[s.jsx("header",{children:r}),s.jsx("main",{className:"self-start",children:n}),s.jsx("footer",{children:a})]})};export{t as S};
