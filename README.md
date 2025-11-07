@@ -13,5 +13,9 @@ login -> boot -> drive select -> download seq -> completion -> login
 |
 -> lockdown -> login
 
-
+code will be:
 86426
+
+
+before using beep, load kernel module
+sudo modprobe pcspkr
