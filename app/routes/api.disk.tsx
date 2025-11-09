@@ -12,8 +12,12 @@ export default function FloppyActions() {
       <h1>Floppy Muveletek</h1>
 
       <fetcher.Form method="post">
-        <input type="hidden" value="read" name="action" />
-        <input className="border p-2" type="submit" value="beolvas" />
+        <input
+          className="border p-2"
+          type="submit"
+          name="action"
+          value="mount"
+        />
       </fetcher.Form>
 
       <div>
@@ -33,7 +37,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
   // action can have the following values
   const formSchema = z.object({
-    action: z.enum(["read", "format", "copy", "check"]),
+    action: z.enum(["read", "format", "copy", "mount"]),
   })
 
   const actionData = await formSchema.parseAsync(formObject)
@@ -44,7 +48,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
   // do nothing if not on linux
   if (os.platform() !== "linux") return { result: "ok" }
 
-  const result = await asyncExec("ls -al")
+  const result = await asyncExec("mount /dev/fd0 /mnt/floppy")
 
   return result
 }
