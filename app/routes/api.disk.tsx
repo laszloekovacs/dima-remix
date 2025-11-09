@@ -48,7 +48,21 @@ export const action = async ({ request }: Route.ActionArgs) => {
   // do nothing if not on linux
   if (os.platform() !== "linux") return { result: "ok" }
 
-  const result = await asyncExec("mount /dev/fd0 /mnt/floppy")
+  switch (actionData.action) {
+    case "mount":
+      return await asyncExec("mount /dev/fd0 /mnt/floppy")
+    case "read":
+      return await asyncExec("ls -la /mnt/floppy")
+    case "format":
+      return await asyncExec("mkfs.msdos /dev/fd0")
+    case "copy": {
+      const dataDir = `${process.cwd()}/public/diskdata`
 
-  return result
+      // ensure mountpoint exists
+      await asyncExec("mkdir -p /mnt/floppy")
+
+      // copy all files (including hidden ones) from dataDir to the floppy
+      return await asyncExec(`cp -a ${dataDir}/. /mnt/floppy/`)
+    }
+  }
 }

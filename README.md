@@ -50,3 +50,6 @@ to pull the latest code, go to the project directory and run ```git pull```
 
 ## enable root account to be able to mount
 ```sudo passwrd root```
+
+## get older lubutu image
+```https://cdimage.ubuntu.com/lubuntu/releases/18.04/release/```
