@@ -47,3 +47,6 @@ to pull the latest code, go to the project directory and run ```git pull```
 
 ## pnpm can be installed with
 ```curl -fsSL https://get.pnpm.io/install.sh | sh -```
+
+## enable root account to be able to mount
+```sudo passwrd root```
