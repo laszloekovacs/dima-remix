@@ -44,3 +44,6 @@ gsettings set org.gnome.desktop.media-handling volume-monitor-enabled false
 
 ## update code on the Athlon 64 machine
 to pull the latest code, go to the project directory and run ```git pull```
+
+## pnpm can be installed with
+```curl -fsSL https://get.pnpm.io/install.sh | sh -```
