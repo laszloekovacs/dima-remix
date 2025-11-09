@@ -20,20 +20,6 @@ code will be:
 # before using beep, load kernel module
 ```sudo modprobe pcspkr```
 
-# install "latest" nodejs 
-```
-# Download and install fnm:
-curl -o- https://fnm.vercel.app/install | bash
-
-# Download and install Node.js:
-fnm install 24
-
-# Verify the Node.js version:
-node -v # Should print "v24.11.0".
-
-# Verify npm version:
-npm -v # Should print "11.6.1".
-```
 
 # disable automounting volumes
 ```
@@ -53,3 +39,10 @@ to pull the latest code, go to the project directory and run ```git pull```
 
 ## get older lubutu image
 ```https://cdimage.ubuntu.com/lubuntu/releases/18.04/release/```
+
+install node globally
+```curl -fsSL https://raw.githubusercontent.com/mklement0/n-install/stable/bin/n-install | bash -s 24```
+then 
+```sudo apt install  -y nodejs```
+check version
+```node -v npm -v```
