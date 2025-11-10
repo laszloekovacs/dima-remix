@@ -4,6 +4,27 @@ import { useCountdownTimer } from "~/hooks/useCountdownTimer"
 export default function DownloadSqeuence() {
   const navigate = useNavigate()
 
+  // check if target date is not set
+  if (null == localStorage.getItem("download.targetDate")) {
+    // load sequence length from settings if set or default
+    const duration = localStorage.getItem("settings.downloadDuration") || 5000
+
+    // create a date that is (duration) away in the future
+
+    // store it in local storage
+    localStorage.setItem("download.targetDate", duration.toString())
+  }
+
+  const handleCompletion = () => {
+    // send a beep to server
+
+    // set completion on localstorage
+    localStorage.setItem("download.complete", "true")
+
+    // go to completion screen
+    navigate("/download-complete")
+  }
+
   const [timeleft, sixtieths] = useCountdownTimer({
     targetDate: new Date("2025.11.11"),
     onComplete: () => navigate("/download-complete"),
