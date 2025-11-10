@@ -1,32 +1,32 @@
 import { useNavigate } from "react-router"
 import { useCountdownTimer } from "~/hooks/useCountdownTimer"
+import { Temporal } from "@js-temporal/polyfill"
 
 export default function DownloadSqeuence() {
   const navigate = useNavigate()
 
   // check if target date is not set
   if (null == localStorage.getItem("download.targetDate")) {
-    // load sequence length from settings if set or default
-    const duration = localStorage.getItem("settings.downloadDuration") || 5000
-
-    // create a date that is (duration) away in the future
+    // create a time set 2 minutes in the future
+    const target = Temporal.Now.plainTimeISO().add({ minutes: 2 })
+    console.log(target)
 
     // store it in local storage
-    localStorage.setItem("download.targetDate", duration.toString())
+    localStorage.setItem("download.targetDate", target.toString())
   }
 
   const handleCompletion = () => {
     // send a beep to server
 
-    // set completion on localstorage
-    localStorage.setItem("download.complete", "true")
+    // clear the target time set in ls
+    localStorage.removeItem("download.targetDate")
 
     // go to completion screen
     navigate("/download-complete")
   }
 
   const [timeleft, sixtieths] = useCountdownTimer({
-    targetDate: new Date("2025.11.11"),
+    targetDate: new Date(),
     onComplete: () => navigate("/download-complete"),
   })
 
