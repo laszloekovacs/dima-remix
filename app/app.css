@@ -46,3 +46,7 @@
 .terminal {
 	filter: grayscale(1) sepia(1) hue-rotate(310deg) saturate(3);
 }
+
+.image_enhance {
+	filter: grayscale(1);
+}
