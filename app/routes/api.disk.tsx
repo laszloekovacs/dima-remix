@@ -50,7 +50,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
   switch (actionData.action) {
     case "mount":
-      return await asyncExec("mount /dev/fd0 /mnt/floppy")
+      return await asyncExec("mount /mnt/floppy")
     case "read":
       return await asyncExec("ls -la /mnt/floppy")
     case "format":
