@@ -37,7 +37,11 @@ export function useCountdownTimer({
     return () => cancelAnimationFrame(rafRef.current)
   }, [targetDate, onComplete])
 
-  const sixtieths = Math.floor((timeLeft.getMilliseconds() / 1000) * 60) // 0–59
+  const sixtiethsRaw = Math.floor((timeLeft.getMilliseconds() / 1000) * 60) // 0–59
+
+  // pad with zero if less than 9
+  const sixtieths =
+    sixtiethsRaw < 10 ? `0${sixtiethsRaw}` : sixtiethsRaw.toString()
 
   return [timeLeft, sixtieths] as const
 }
