@@ -8,16 +8,36 @@ export default function FloppyActions() {
   const fetcher = useFetcher()
 
   return (
-    <div>
-      <h1>Floppy Muveletek</h1>
+    <div className="p-5">
+      <h1 className="mb-4">Floppy Műveletek</h1>
 
       <fetcher.Form method="post">
-        <input
-          className="border p-2"
-          type="submit"
-          name="action"
-          value="mount"
-        />
+        <div className="flex flex-row gap-2 mb-4">
+          <input
+            className="border p-2"
+            type="submit"
+            name="action"
+            value="mount"
+          />
+          <input
+            className="border p-2"
+            type="submit"
+            name="action"
+            value="read"
+          />
+          <input
+            className="border p-2"
+            type="submit"
+            name="action"
+            value="format"
+          />
+          <input
+            className="border p-2"
+            type="submit"
+            name="action"
+            value="copy"
+          />
+        </div>
       </fetcher.Form>
 
       <div>
@@ -46,7 +66,8 @@ export const action = async ({ request }: Route.ActionArgs) => {
   console.log(actionData)
 
   // do nothing if not on linux
-  if (os.platform() !== "linux") return { result: "ok" }
+  if (os.platform() !== "linux")
+    return { result: "ok", action: actionData.action }
 
   switch (actionData.action) {
     case "mount":
@@ -54,7 +75,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
     case "read":
       return await asyncExec("ls -la /mnt/floppy")
     case "format":
-      return await asyncExec("mkfs.msdos /dev/fd0")
+      return await asyncExec("mkfs.vfat /dev/fd0")
     case "copy": {
       const dataDir = `${process.cwd()}/public/diskdata`
 
