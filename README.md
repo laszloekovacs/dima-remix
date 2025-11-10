@@ -77,12 +77,24 @@ sudo modprobe pcspkr
 beep -f 200
 ```
 
+if blocked, check what config blocks it and comment it out
+```bash
+grep -r pcspkr /etc/modprobe.d/
+```
+
+
 2. To load kernel module on boot:
    - Create/edit `/etc/modules-load.d/pcspkr.conf`
    - Add this line: `pcspkr`
    - Reboot
 
-## printer setup
+### printer setup
 ```
 TODO
 ```
+
+
+### replacing window manager, kiosk mode
+```
+TODO
+``` 
