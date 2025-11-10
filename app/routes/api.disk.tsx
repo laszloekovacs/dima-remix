@@ -1,8 +1,14 @@
+import { readdir, cp } from "node:fs/promises"
 import os from "node:os"
 import { useFetcher } from "react-router"
 import z from "zod"
 import { asyncExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.disk"
+
+// action can have the following values
+const formSchema = z.object({
+  action: z.enum(["mount", "umount", "read", "format", "copy"]),
+})
 
 export default function FloppyActions() {
   const fetcher = useFetcher()
@@ -18,6 +24,12 @@ export default function FloppyActions() {
             type="submit"
             name="action"
             value="mount"
+          />
+          <input
+            className="border p-2"
+            type="submit"
+            name="action"
+            value="umount"
           />
           <input
             className="border p-2"
@@ -52,38 +64,38 @@ export default function FloppyActions() {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-  const formData = await request.formData()
-  const formObject = Object.fromEntries(formData)
-
-  // action can have the following values
-  const formSchema = z.object({
-    action: z.enum(["read", "format", "copy", "mount"]),
-  })
-
+  const formObject = Object.fromEntries(await request.formData())
   const actionData = await formSchema.parseAsync(formObject)
 
   // for good measure, log
   console.log(actionData)
 
   // do nothing if not on linux
-  if (os.platform() !== "linux")
-    return { result: "ok", action: actionData.action }
+  if (os.platform() !== "linux") return { action: actionData.action }
 
   switch (actionData.action) {
     case "mount":
       return await asyncExec("mount /mnt/floppy")
+
+    case "umount":
+      return await asyncExec("umount /mnt/floppy")
+
     case "read":
-      return await asyncExec("ls -la /mnt/floppy")
-    case "format":
+      return await readdir("/mnt/floppy")
+
+    case "format": {
+      await asyncExec("umount /mnt/floppy")
       return await asyncExec("mkfs.vfat /dev/fd0")
+    }
+
     case "copy": {
       const dataDir = `${process.cwd()}/public/diskdata`
 
-      // ensure mountpoint exists
-      await asyncExec("mkdir -p /mnt/floppy")
+      // ensure mounting the floppy
+      await asyncExec("mount /mnt/floppy")
 
-      // copy all files (including hidden ones) from dataDir to the floppy
-      return await asyncExec(`cp -a ${dataDir}/. /mnt/floppy/`)
+      // copy files over
+      return await cp(dataDir, "/mnt/floppy", { force: true, recursive: true })
     }
   }
 }
