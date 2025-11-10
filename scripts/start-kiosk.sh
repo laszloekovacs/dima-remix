@@ -21,7 +21,7 @@ SERVER_PID=$!
 sleep 5
 
 #start firefox in kiosk mode
-firefox http://localhost:3000
+firefox --kiosk http://localhost:3000
 
 #when firefox closes, kill the server
 kill $SERVER_PID
