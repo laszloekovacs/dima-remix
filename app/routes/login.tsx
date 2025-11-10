@@ -21,36 +21,39 @@ const LoginPage = () => {
   }, [])
 
   // check code if it matches the one in the localstorage or default
-  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
-    // prevent sending it to backend
-    e.preventDefault()
+  const handleSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      // prevent sending it to backend
+      e.preventDefault()
 
-    // prevent submitting on empty value
-    if (!passcodeRef.current?.value) return
+      // prevent submitting on empty value
+      if (!passcodeRef.current?.value) return
 
-    // use the local stored one or default
-    const passcode = localStorage.getItem("dima.passcode") ?? DEFAULT_PASSCODE
+      // use the local stored one or default
+      const passcode = localStorage.getItem("dima.passcode") ?? DEFAULT_PASSCODE
 
-    // compare codes
-    if (passcode === passcodeRef.current?.value) {
-      console.log("Access granted")
+      // compare codes
+      if (passcode === passcodeRef.current?.value) {
+        console.log("Access granted")
 
-      // reset retries, no need but good to do
-      localStorage.setItem("passcode.count", "3")
+        // reset retries, no need but good to do
+        localStorage.setItem("passcode.count", "3")
 
-      navigate("/boot")
-    } else {
-      // decrease retries count
-      setCount((c) => {
-        const newCount = c - 1
-        localStorage.setItem("passcode.count", newCount.toString())
-        return newCount
-      })
+        navigate("/boot")
+      } else {
+        // decrease retries count
+        setCount((c) => {
+          const newCount = c - 1
+          localStorage.setItem("passcode.count", newCount.toString())
+          return newCount
+        })
 
-      // display a warning
-      setFail(true)
-    }
-  }, [])
+        // display a warning
+        setFail(true)
+      }
+    },
+    [navigate],
+  )
 
   // check if we have retries left
   useEffect(() => {
@@ -78,11 +81,12 @@ const LoginPage = () => {
           <Form method="post" onSubmit={handleSubmit}>
             <input
               ref={passcodeRef}
-              type="text"
+              type="password"
               id="passcode"
               className="w-full bg-black border border-green-500 text-green-500 px-3 py-2 font-[Share_Tech_Mono] focus:outline-none focus:ring-2 focus:ring-green-700"
               placeholder="••••••••"
               onBlur={() => passcodeRef.current?.focus()}
+              autoComplete="false"
             />
           </Form>
           {hadFail && (

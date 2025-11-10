@@ -1,31 +1,17 @@
-import { useEffect, useRef } from "react"
+import { useHotkeys } from "react-hotkeys-hook"
 import { useNavigate } from "react-router"
 
 export default function Home() {
   const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate("login")
-  }
-
-  const buttonRef = useRef<HTMLButtonElement | null>(null)
-
-  useEffect(() => {
-    buttonRef.current?.focus()
-  }, [])
+  useHotkeys("enter", () => navigate("login"))
 
   return (
     <div className="min-h-screen min-w-screen grid place-content-center">
-      <div className="text-sm">
-        <p>DIMA távoli adatelérés terminál</p>
-        <button
-          type="button"
-          onClick={handleClick}
-          ref={buttonRef}
-          onBlur={() => buttonRef.current?.focus()}
-        >
-          folytatáshoz nyomja meg az Enter-t
-        </button>
+      <div>
+        <p className="mb-4">DIMA távoli adatelérés terminál</p>
+        <p>
+          folytatáshoz nyomja meg az <span>Enter</span> billentyűt
+        </p>
       </div>
     </div>
   )
