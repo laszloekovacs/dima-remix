@@ -1,4 +1,4 @@
-# Avtomat Д.И.М.А - A S.T.A.L.K.E.R Escape Room Game Prop
+# автомат Д.И.М.А ★ A S.T.A.L.K.E.R Themed Escape Room Game Prop
 
 ## Features Todo
 - Boot screen and lock screen
@@ -23,40 +23,58 @@ Package references:
 - [react-hotkeys-hook v4.0.7](https://www.npmjs.com/package/react-hotkeys-hook/v/4.0.7)
 
 ## System Requirements
-This program is tested on Lubuntu 25 and an Athlon 64 x2 machine with 2GB of RAM. The program requires a 64-bit CPU and PATA interface for floppy drives. The Athlon 64 fits this role perfectly.
 
-## Setup Instructions
+
+
+The program is tested with Lubuntu 24 on an Athlon 64 x2 with 2gb of ram. The program requires a Amd64 system and PATA interface for floppy drives
+
+required hardvare:
+- floppy drive
+- printer
+
+## Setup Instructions and notes
+
+### Post lubuntu install
+1. for the latest packages, update and upgrade the system
+```bash
+sudo apt update && sudo apt upgrade -y
+```
 
 ### Basic Setup
-1. Clone the repository:
+1. Clone the repository after installing git:
 ```bash
 git clone https://path-to-code
 ```
 
-2. Update to latest code:
+2. To update to latest code:
 ```bash
 cd project-directory
 git pull
 ```
 
-3. Enable root account for mounting:
-```bash
-sudo passwd root
-```
 
-4. Install Node.js using Node Version Manager (nvm) as described on the Node.js website
+1. Install latest Node.js using Node Version Manager (nvm) as described on the Node.js website. the project was tested with Node version 24
 
 ### Floppy Drive Setup
-To mount without root privileges, add this line to `/etc/fstab`:
+1. Mount the floppy manually
+```
+    sudo mkdir /mnt/floppy
+    sudo mount /dev/fd0 /mnt/floppy
+```
+
+2. To mount without root privileges, add this line to `/etc/fstab`:
 ```
 /dev/fd0  /mnt/floppy  vfat  noauto,user,rw  0  0
 ```
 Note: vfat filesystem is used as it has no permission control and can be read by DOS.
 
+
 ### PC Speaker Setup
-1. Load the kernel module if not loaded at boot:
+1. Load the kernel module if not loaded at boot and test with:
 ```bash
 sudo modprobe pcspkr
+
+beep -f 200
 ```
 
 2. To load kernel module on boot:
@@ -64,7 +82,7 @@ sudo modprobe pcspkr
    - Add this line: `pcspkr`
    - Reboot
 
-3. Test the speaker:
-```bash
-beep -f 200
+## printer setup
+```
+TODO
 ```
