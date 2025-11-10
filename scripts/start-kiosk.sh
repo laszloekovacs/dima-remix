@@ -2,7 +2,13 @@
 # chmod +x start-kiosk.sh after copying over
 
 # set a colored background
-xsetroot -solid "#1e90ff"  # DodgerBlue
+# xsetroot -solid "#1e90ff"  # DodgerBlue
+
+# set background image from the project
+feh --bg-scale ~/dima-remix/public/splash.jpg
+
+# start window manager
+openbox-session &
 
 # change to project directory
 cd ~/dima-remix
@@ -15,7 +21,7 @@ SERVER_PID=$!
 sleep 5
 
 #start firefox in kiosk mode
-exec firefox --kiosk --profile ~/dima-remix/scripts/user.js http://localhost:3000
+firefox http://localhost:3000
 
 #when firefox closes, kill the server
 kill $SERVER_PID
