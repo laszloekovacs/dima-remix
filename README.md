@@ -105,3 +105,11 @@ if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
     startx
 fi
 ```
+
+
+### settings for firefox
+copy over the content of user.js to disable all popups
+```
+mkdir -p ~/.mozilla/firefox/default-profile
+nano ~/.mozilla/firefox/default-profile/user.js
+```

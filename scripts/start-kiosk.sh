@@ -1,6 +1,9 @@
 #!/bin/bash
 # chmod +x start-kiosk.sh after copying over
 
+# set a colored background
+xsetroot -solid "#1e90ff"  # DodgerBlue
+
 # change to project directory
 cd ~/dima-remix
 
@@ -12,7 +15,7 @@ SERVER_PID=$!
 sleep 5
 
 #start firefox in kiosk mode
-firefox -kiosk http://localhost:3000
+exec firefox --kiosk --profile ~/dima-remix/scripts/user.js http://localhost:3000
 
 #when firefox closes, kill the server
 kill $SERVER_PID
