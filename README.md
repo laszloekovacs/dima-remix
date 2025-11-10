@@ -98,3 +98,10 @@ TODO
 ```
 TODO
 ``` 
+
+### to autostart windowing environment add this to bashrc
+``` bash
+if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+    startx
+fi
+```
