@@ -1,51 +1,70 @@
-# Avtomat Д.И.М.А - A S.T.A.L.K.E.R  Escape Room Game Prop
+# Avtomat Д.И.М.А - A S.T.A.L.K.E.R Escape Room Game Prop
 
+## Features Todo
+- Boot screen and lock screen
+- Lockdown on 3 bad passes
+- Document screen with copy to pendrive
+- More sovietpunk aesthetics
 
-TODO
-- boot screen and lock screen
-- lockdown on 3 bad passes
-- document screen with copy to pendrive
-- more sovietpunk asthetics
-
-documentation for packages used:
-
-https://www.npmjs.com/package/react-hotkeys-hook/v/4.0.7
-
+## Game Flow
 Sequence of pages:
+```
 login -> boot -> drive select -> download seq -> completion -> login
 |
 -> lockdown -> login
+```
 
-passcode for the game will be 86426,
- the default passcode is 5435:
+## Game Settings
+- Game passcode: 86426
+- Default passcode: 5435
 
+## Documentation
+Package references:
+- [react-hotkeys-hook v4.0.7](https://www.npmjs.com/package/react-hotkeys-hook/v/4.0.7)
 
-### System compatibility
-This program is thested on lubuntu 25 and an Athlon 64 x2 machine with 2gb of ram. the program requres a 64 bit cpu and PATA interface for floppy drives, atholn 64 fits this role perfectly.
+## System Requirements
+This program is tested on Lubuntu 25 and an Athlon 64 x2 machine with 2GB of RAM. The program requires a 64-bit CPU and PATA interface for floppy drives. The Athlon 64 fits this role perfectly.
 
-### running
-clone the source code with `git clone https://path-to-code` 
-to pull the latest code, go to the project directory and run ```git pull```
+## Setup Instructions
 
+### Basic Setup
+1. Clone the repository:
+```bash
+git clone https://path-to-code
+```
 
+2. Update to latest code:
+```bash
+cd project-directory
+git pull
+```
 
-to enable root account to be able to mount
-```sudo passwrd root```
+3. Enable root account for mounting:
+```bash
+sudo passwd root
+```
 
-install node using **node version manager - nvm** as described on nodejs website
+4. Install Node.js using Node Version Manager (nvm) as described on the Node.js website
 
+### Floppy Drive Setup
+To mount without root privileges, add this line to `/etc/fstab`:
+```
+/dev/fd0  /mnt/floppy  vfat  noauto,user,rw  0  0
+```
+Note: vfat filesystem is used as it has no permission control and can be read by DOS.
 
-### mounting without root privileges 
-add new line to `/etc/fstab` and use vfat filesystem. vfat has no permission controll, appartently dos can read it 
-`/dev/fd0  /mnt/floppy  vfat  noauto,user,rw 0  0`
+### PC Speaker Setup
+1. Load the kernel module if not loaded at boot:
+```bash
+sudo modprobe pcspkr
+```
 
-### pc speaker beep module
+2. To load kernel module on boot:
+   - Create/edit `/etc/modules-load.d/pcspkr.conf`
+   - Add this line: `pcspkr`
+   - Reboot
 
- before using beep, load kernel module if not loaded at boot
-```sudo modprobe pcspkr```
-
-to load kernel module on boot, add 
-`/etc/modules-load.d/pcspkr.conf` add this line: `pcspkr` and reboot
-
-to test run: 
-`beep -f 200`
+3. Test the speaker:
+```bash
+beep -f 200
+```
