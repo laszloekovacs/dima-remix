@@ -46,3 +46,7 @@ then
 ```sudo apt install  -y nodejs```
 check version
 ```node -v npm -v```
+
+
+add new line to `/etc/fstab` and use vfat filesystem. vfat has no permission controll, appartently dos can read it 
+`/dev/fd0  /mnt/floppy  vfat  noauto,user,rw 0  0`
