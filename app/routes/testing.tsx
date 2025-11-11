@@ -1,6 +1,7 @@
 import SystemLayout from "app/components/system-layout"
 import { useMemo } from "react"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
+///import { useCountdownTimer } from "~/hooks/useCountdownTimer"
 import useSlideshow from "~/hooks/useSlideshow"
 
 export default function TestingRoute(): React.ReactNode {
@@ -25,12 +26,9 @@ export default function TestingRoute(): React.ReactNode {
             <p>{slide}</p>
           </div>
         }
-        commandLine={
-          <div>
-            <span>{stopwatch && formatStopwatch(stopwatch).asString}</span>
-          </div>
-        }
+        commandLine={<div></div>}
       />
+      <span>{stopwatch && formatStopwatch(stopwatch).asString}</span>
     </div>
   )
 }

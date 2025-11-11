@@ -1,5 +1,5 @@
 import { Temporal } from "@js-temporal/polyfill"
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 // Remaining time with temporal
 type DurationLike = Parameters<typeof Temporal.Duration.from>[0]
@@ -9,16 +9,17 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
   const targetRef = useRef<Temporal.Instant>(
     Temporal.Now.instant().add(duration),
   )
-  const remainingTimeRef = useRef<Temporal.Duration>(
+  const [remaining, setRemaining] = useState<Temporal.Duration>(
     Temporal.Now.instant().until(targetRef.current),
   )
 
   const update = useCallback(() => {
     const now = Temporal.Now.instant()
-    remainingTimeRef.current = now.until(targetRef.current)
+    const r = now.until(targetRef.current)
+    setRemaining(r)
 
     // If time is up, run callback, stop animation
-    if (remainingTimeRef.current.total("seconds") <= 0) {
+    if (r.total("seconds") <= 0) {
       callback?.()
       if (animRef.current !== null) {
         cancelAnimationFrame(animRef.current)
@@ -28,17 +29,13 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
       // Dont run another animation frame
       return
     }
-
     // Continue animation
     animRef.current = requestAnimationFrame(update)
   }, [callback])
 
   // Only needed to kick off animation chain or stopping it on unmount
   useEffect(() => {
-    //targetRef.current = Temporal.Now.instant().add(duration)
     animRef.current = requestAnimationFrame(update)
-
-    console.log("changing")
 
     return () => {
       if (animRef.current !== null) {
@@ -47,7 +44,7 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
     }
   }, [update])
 
-  return remainingTimeRef.current
+  return remaining
 }
 
 export function formatStopwatch(duration: Temporal.Duration) {

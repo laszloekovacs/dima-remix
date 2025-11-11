@@ -1,47 +1,84 @@
-import { useEffect, useRef, useState } from "react"
+import { Temporal } from "@js-temporal/polyfill"
+import { useCallback, useEffect, useRef, useState } from "react"
 
-function getRemainingTime(endTime: Date) {
-  const now = Date.now()
-  const totalMs = new Date(endTime).getTime() - now
-  const clamped = Math.max(0, totalMs)
-  return new Date(clamped)
-}
+type DurationLike = Parameters<typeof Temporal.Duration.from>[0]
 
-export function useCountdownTimer({
-  targetDate,
-  onComplete,
-}: {
-  targetDate: Date
-  onComplete?: () => void
-}) {
-  const [timeLeft, setTimeLeft] = useState(() => getRemainingTime(targetDate))
-  const rafRef = useRef(0)
+export const useCountdownTimer = (
+  duration: DurationLike,
+  callback?: () => void,
+) => {
+  const animRef = useRef<number | null>(null)
+  const targetRef = useRef<Temporal.Instant>(
+    Temporal.Now.instant().add(Temporal.Duration.from(duration)),
+  )
+  const callbackRef = useRef(callback)
+  const [remaining, setRemaining] = useState<Temporal.Duration>(() =>
+    Temporal.Now.instant().until(targetRef.current),
+  )
 
+  // Keep callback ref fresh
   useEffect(() => {
-    const update = () => {
-      const remaining = getRemainingTime(targetDate)
-      setTimeLeft(remaining)
+    callbackRef.current = callback
+  }, [callback])
 
-      // trigger callback when time goes to 0
-      if (remaining.getTime() <= 0) {
-        onComplete?.()
-        return
-      }
+  const update = useCallback(() => {
+    const now = Temporal.Now.instant()
+    const newRemaining = now.until(targetRef.current)
 
-      // consecutive updates are called here
-      rafRef.current = requestAnimationFrame(update)
+    // ✅ Always update ref for latest value
+    // But only update state if time meaningfully changed (e.g. xx unit changed)
+    const prevMs = remaining.total({ unit: "millisecond" })
+    const newMs = newRemaining.total({ unit: "millisecond" })
+
+    // 🚀 Optimization: Only re-render when the `xx` (1/60s) unit changes
+    // Since you format to :xx (0–59), re-render every ~16.67ms is unnecessary.
+    // Round to nearest 1/60th of a second (≈16.67ms) for smoother but efficient updates.
+    const tickSizeMs = 1000 / 60 // ~16.6667
+    const prevTick = Math.floor(prevMs / tickSizeMs)
+    const newTick = Math.floor(newMs / tickSizeMs)
+
+    if (newTick !== prevTick) {
+      // Clamp to zero to avoid negative rendering
+      setRemaining(newMs <= 0 ? Temporal.Duration.from({}) : newRemaining)
     }
 
-    // fire off first update in the chain of events
-    rafRef.current = requestAnimationFrame(update)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [targetDate, onComplete])
+    // Handle expiry
+    if (newMs <= 0) {
+      if (animRef.current !== null) {
+        cancelAnimationFrame(animRef.current)
+        animRef.current = null
+      }
+      setRemaining(Temporal.Duration.from({})) // ensure zero
+      callbackRef.current?.()
+      return
+    }
 
-  const sixtiethsRaw = Math.floor((timeLeft.getMilliseconds() / 1000) * 60) // 0–59
+    animRef.current = requestAnimationFrame(update)
+  }, [remaining]) // depend on remaining to capture tick changes
 
-  // pad with zero if less than 9
-  const sixtieths =
-    sixtiethsRaw < 10 ? `0${sixtiethsRaw}` : sixtiethsRaw.toString()
+  // Reset & start on duration change
+  useEffect(() => {
+    const newTarget = Temporal.Now.instant().add(
+      Temporal.Duration.from(duration),
+    )
+    targetRef.current = newTarget
 
-  return [timeLeft, sixtieths] as const
+    // Reset state and kick off animation
+    const newRemaining = Temporal.Now.instant().until(newTarget)
+    setRemaining(newRemaining)
+
+    if (animRef.current !== null) {
+      cancelAnimationFrame(animRef.current)
+    }
+    animRef.current = requestAnimationFrame(update)
+
+    return () => {
+      if (animRef.current !== null) {
+        cancelAnimationFrame(animRef.current)
+        animRef.current = null
+      }
+    }
+  }, [duration, update])
+
+  return remaining
 }
