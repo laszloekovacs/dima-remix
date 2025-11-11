@@ -1,5 +1,5 @@
 import { Temporal } from "@js-temporal/polyfill"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
 // Remaining time with temporal
 type DurationLike = Parameters<typeof Temporal.Duration.from>[0]
@@ -9,19 +9,16 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
   const targetRef = useRef<Temporal.Instant>(
     Temporal.Now.instant().add(duration),
   )
-  const [remainingTime, setRemainingTime] = useState<Temporal.Duration | null>(
-    null,
+  const remainingTimeRef = useRef<Temporal.Duration>(
+    Temporal.Now.instant().until(targetRef.current),
   )
 
   const update = useCallback(() => {
     const now = Temporal.Now.instant()
-    const remaining = now.until(targetRef.current)
-
-    // Store in state so we can return it from the hook
-    setRemainingTime(remaining)
+    remainingTimeRef.current = now.until(targetRef.current)
 
     // If time is up, run callback, stop animation
-    if (remaining.total("seconds") <= 0) {
+    if (remainingTimeRef.current.total("seconds") <= 0) {
       callback?.()
       if (animRef.current !== null) {
         cancelAnimationFrame(animRef.current)
@@ -38,7 +35,10 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
 
   // Only needed to kick off animation chain or stopping it on unmount
   useEffect(() => {
+    //targetRef.current = Temporal.Now.instant().add(duration)
     animRef.current = requestAnimationFrame(update)
+
+    console.log("changing")
 
     return () => {
       if (animRef.current !== null) {
@@ -47,19 +47,30 @@ export const useCountdown = (duration: DurationLike, callback?: () => void) => {
     }
   }, [update])
 
-  return remainingTime
+  return remainingTimeRef.current
 }
 
-export function formatStopwatch(duration: Temporal.Duration): string {
+export function formatStopwatch(duration: Temporal.Duration) {
+  // balance out units
+  const balanced = duration.round({ largestUnit: "hour" })
+
   // Pad hours,mins,seconds
-  const hours = duration.hours.toString().padStart(2, "0")
-  const minutes = duration.minutes.toString().padStart(2, "0")
-  const seconds = duration.seconds.toString().padStart(2, "0")
+  const hours = balanced.hours.toString().padStart(2, "0")
+  const minutes = balanced.minutes.toString().padStart(2, "0")
+  const seconds = balanced.seconds.toString().padStart(2, "0")
+  const ms = balanced.milliseconds
 
-  // Convert nanoseconds to centiseconds (0–59 range)
-  const fractionalSeconds = duration.nanoseconds / 1e9
-  const centiseconds = Math.floor(fractionalSeconds * 100) % 60
-  const cs = centiseconds.toString().padStart(2, "0")
+  // hexatrigintiseconds (apparently that is what it is called)
+  const msInSecond = ms % 1000 // 0–999
+  const hs = Math.floor((msInSecond * 60) / 1000)
+    .toString()
+    .padStart(2, "0") // 0–59
 
-  return `${hours}:${minutes}:${seconds}.${cs}`
+  return {
+    asString: `${hours}:${minutes}:${seconds}:${hs}`,
+    hours,
+    minutes,
+    seconds,
+    hs,
+  }
 }
