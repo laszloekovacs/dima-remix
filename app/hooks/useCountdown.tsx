@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 // Remaining time with temporal
 type DurationLike = Parameters<typeof Temporal.Duration.from>[0]
 
-export const useCountdown = (duration: DurationLike, callback: () => void) => {
+export const useCountdown = (duration: DurationLike, callback?: () => void) => {
   const animRef = useRef<number | null>(null)
   const targetRef = useRef<Temporal.Instant>(
     Temporal.Now.instant().add(duration),
@@ -61,5 +61,5 @@ export function formatStopwatch(duration: Temporal.Duration): string {
   const centiseconds = Math.floor(fractionalSeconds * 100) % 60
   const cs = centiseconds.toString().padStart(2, "0")
 
-  return `${hours}.${minutes}.${seconds}.${cs}`
+  return `${hours}:${minutes}:${seconds}.${cs}`
 }
