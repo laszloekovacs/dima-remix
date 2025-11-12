@@ -1,5 +1,5 @@
 import SystemLayout from "app/components/system-layout"
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 ///import { useCountdownTimer } from "~/hooks/useCountdownTimer"
 import useSlideshow from "~/hooks/useSlideshow"
@@ -7,7 +7,10 @@ import useSlideshow from "~/hooks/useSlideshow"
 export default function TestingRoute(): React.ReactNode {
   const phrases = useMemo(() => ["hello", "world", "wide", "web"], [])
   const slide = useSlideshow(phrases, 1000)
-  const stopwatch = useCountdown({ seconds: 8 }, () => console.log("done"))
+
+  const report = useCallback(() => console.log("done"), [])
+
+  const stopwatch = useCountdown({ seconds: 8 }, report)
 
   return (
     <div>
