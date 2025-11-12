@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router"
-import { useCountdownTimer } from "~/hooks/useCountdownTimer"
 import { Temporal } from "@js-temporal/polyfill"
+import { useCountdown } from "~/hooks/useCountdown"
 
 export default function DownloadSqeuence() {
   const navigate = useNavigate()
@@ -25,10 +25,7 @@ export default function DownloadSqeuence() {
     navigate("/download-complete")
   }
 
-  const [timeleft, sixtieths] = useCountdownTimer({
-    targetDate: new Date(),
-    onComplete: () => navigate("/download-complete"),
-  })
+  const timeleft = useCountdown({ minutes: 2 })
 
   return (
     <div className="p-8">
@@ -41,9 +38,7 @@ export default function DownloadSqeuence() {
       </div>
       <div className="text-6xl text-amber-700">
         <p>Hátralévő idő:</p>
-        <p>
-          {timeleft.toTimeString()}:{sixtieths}
-        </p>
+        <p>{timeleft.toString()}</p>
       </div>
     </div>
   )

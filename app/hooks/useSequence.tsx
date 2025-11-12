@@ -19,9 +19,9 @@ export const bootEvents = [
 
 // sequence with randomized stagger
 export const useSequence = (
-  lines: string[],
+  lines: number,
   onDone?: () => void,
-  onFinishedEvent?: (line: string, index: number) => void,
+  onFinishedEvent?: (index: number) => void,
   delay: number = 800,
   variance: number = 200,
 ) => {
@@ -30,21 +30,19 @@ export const useSequence = (
   // start the timeout that increases the index, run callback when done
   useEffect(() => {
     // short circuit if out of index or 0 array
-    if (index >= lines.length) {
-      if (index === 0 && lines.length === 0) {
-        onDone?.()
-        console.log("out of bounds or no sequence lines to draw!")
-      }
+    if (index >= lines || lines <= 0) {
+      onDone?.()
+      console.log("sequence done!")
       return
     }
 
     const timer = setTimeout(
       () => {
         setIndex((i) => {
-          onFinishedEvent?.(lines[i], i)
+          onFinishedEvent?.(i)
           const next = i + 1
 
-          if (lines.length == next) {
+          if (lines == next) {
             onDone?.()
           }
           return next
@@ -56,13 +54,7 @@ export const useSequence = (
     return () => clearTimeout(timer)
   }, [index, lines, onDone, onFinishedEvent, delay, variance])
 
-  return (
-    <div>
-      {lines.slice(0, index).map((line, i) => (
-        <div key={`${i}-${line}`}>{line}</div>
-      ))}
-    </div>
-  )
+  return index
 }
 
 export const oldbootLines = [
