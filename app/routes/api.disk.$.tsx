@@ -1,7 +1,7 @@
 import { useFetcher } from "react-router"
 import type { Route } from "./+types/api.disk.$"
 import { z } from "zod"
-import { asyncExec } from "~/utils/exec.server"
+import { asyncExec, asyncSafeExec } from "~/utils/exec.server"
 import { readdir, cp } from "node:fs/promises"
 
 const floppyActions = [ "mount" , "umount", "read", "format", "copy" ] as const
@@ -41,33 +41,41 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 
   switch(action) {
     case "mount": 
-      return await asyncExec("mount /mnt/floppy")
+      return await asyncSafeExec("mount /mnt/floppy")
       
     case "umount":
-      return await asyncExec("umount /mnt/floppy")
+      return await asyncSafeExec("umount /mnt/floppy")
 
-        case "read":
-      return await readdir("/mnt/floppy")
+      
+      case "format": {
+        await asyncExec("umount /mnt/floppy")
+        return await asyncExec("mkfs.vfat /dev/fd0")
+      }
 
-    case "format": {
-      await asyncExec("umount /mnt/floppy")
-      return await asyncExec("mkfs.vfat /dev/fd0")
-    }
-
+      case "read":
+        return await safeReaddir("/mnt/floppy")
+      
     case "copy": {
+      // set disk content directory
       const dataDir = `${process.cwd()}/public/diskdata`
 
       // ensure mounting the floppy
       await asyncExec("mount /mnt/floppy")
 
       // copy files over
-      return await cp(dataDir, "/mnt/floppy", { force: true, recursive: true })
+      return await safeCp(dataDir, "/mnt/floppy", { force: true, recursive: true })
     }
-  
 
     default:
       return {status: "unsupported action"}
-
   }
+}
+
+function safeReaddir(arg0: string) {
+  throw new Error("Function not implemented.")
+}
+
+function safeCp(dataDir: string, arg1: string, arg2: { force: boolean; recursive: boolean }) {
+  throw new Error("Function not implemented.")
 }
 
