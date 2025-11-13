@@ -21,12 +21,12 @@ SERVER_PID=$!
 # waits till the server is up
 # install netcat
 until nc -z -w 1 localhost 3000; do
-    echo "Waiting for server start..."
+    echo "szerver indul, kis turelem..."
     sleep 1
 done
 
 #start firefox in kiosk mode
-firefox --kiosk http://localhost:3000
+falkon --kiosk http://localhost:3000
 
 #when firefox closes, kill the server
 trap "kill $SERVER_PID" EXIT
