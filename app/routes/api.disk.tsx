@@ -5,6 +5,9 @@ import z from "zod"
 import { asyncExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.disk"
 
+
+const floopyActions = [ "mount" , "unmount", "read", "format", "copy" ] as const
+
 // action can have the following values
 const formSchema = z.object({
   action: z.enum(["mount", "umount", "read", "format", "copy"]),
