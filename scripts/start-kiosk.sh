@@ -17,11 +17,16 @@ cd ~/dima-remix
 npm run dev &
 SERVER_PID=$!
 
-# give the server a headstart, though it probably needs more time
-sleep 5
+# check with netcat if the socket is open
+# waits till the server is up
+# install sudo netcat
+until nc -z -w 1 localhost:3000; do
+    echo "Waiting for server start..."
+    sleep 1
+done
 
 #start firefox in kiosk mode
 firefox --kiosk http://localhost:3000
 
 #when firefox closes, kill the server
-kill $SERVER_PID
+trap "kill $SERVER_PID" EXIT
