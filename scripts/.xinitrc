@@ -5,4 +5,4 @@ export PATH=$HOME/bin:$PATH
 export XDG_CURRENT_DESKTOP=openbox
 
 # Start the development environment
-exec ~/start-kiosk.sh
+xterm -hold -e ~/start-kiosk.sh

@@ -19,7 +19,7 @@ SERVER_PID=$!
 
 # check with netcat if the socket is open
 # waits till the server is up
-# install sudo netcat
+# install netcat
 until nc -z -w 1 localhost:3000; do
     echo "Waiting for server start..."
     sleep 1
