@@ -19,19 +19,21 @@ export default function PrintApi() {
   const fetcher = useFetcher()
 
   return (
-    <div>
-      <h1>printing api</h1>
+    <>
+      <h1 className="mb-4">Nyomtatás</h1>
       <fetcher.Form method="post">
-        {printActions.map((action) => (
-          <input
-            className="p-1 border"
-            key={action}
-            type="submit"
-            name="action"
-            value={action}
-            formAction={action}
-          />
-        ))}
+        <div className="flex flex-row gap-2 mb-4">
+          {printActions.map((action) => (
+            <input
+              className="p-1 border hover:text-amber-500 active:bg-sky-50"
+              key={action}
+              type="submit"
+              name="action"
+              value={action}
+              formAction={action}
+            />
+          ))}
+        </div>
       </fetcher.Form>
 
       <div>
@@ -41,7 +43,7 @@ export default function PrintApi() {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }
 
