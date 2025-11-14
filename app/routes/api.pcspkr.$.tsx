@@ -1,9 +1,15 @@
 import os from "node:os"
 import { useFetcher } from "react-router"
-import { asyncExec } from "~/utils/exec.server"
+import { asyncSafeExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.pcspkr.$"
+import z from "zod"
 
-const beepPatterns = ["standard"] as const
+const beepPatterns = [
+  "standard",
+  "oneuptwodown",
+  "inthemiddle",
+  "baseline",
+] as const
 
 // create a page to generate types
 export default function BeepPage() {
@@ -14,30 +20,51 @@ export default function BeepPage() {
       <h1 className="mb-4">PC speaker</h1>
 
       <fetcher.Form method="post">
-        {beepPatterns.map((action) => (
-          <input
-            className="p-1 border hover:text-amber-500 active:bg-sky-50"
-            key={action}
-            type="submit"
-            name="action"
-            value={action}
-            formAction={action}
-          />
-        ))}
+        <div className="flex flex-row gap-1">
+          {beepPatterns.map((action) => (
+            <input
+              className="p-1 border hover:text-amber-500 active:bg-sky-50"
+              key={action}
+              type="submit"
+              name="action"
+              value={action}
+              formAction={action}
+            />
+          ))}
+        </div>
       </fetcher.Form>
+
+      <div>
+        {fetcher?.data && (
+          <div>
+            <pre>{JSON.stringify(fetcher.data, null, 2)}</pre>
+          </div>
+        )}
+      </div>
     </>
   )
 }
 
-export async function action({ request }: Route.ActionArgs) {
-  const data = await request.formData()
-  const jsonform = Object.fromEntries(data)
-  // parse with zod?
+// possible parameters are Frequency, Lenght, New, Delay, Repeat
 
-  console.log(jsonform)
+export async function action({ params }: Route.ActionArgs) {
+  const action = z.parse(z.enum(beepPatterns), params["*"])
 
-  // only try to call on linux
-  if (os.platform() !== "linux") return
+  console.log(`beep: ${action}`)
 
-  await asyncExec("beep -f 500")
+  switch (action) {
+    case "standard":
+      return await asyncSafeExec("beep")
+
+    case "oneuptwodown":
+      return await asyncSafeExec("beep -f 800 -n -f 500 -r 2")
+
+    case "inthemiddle":
+      return await asyncSafeExec("beep -f 600 -n -f 400 -n -f 600")
+
+    case "baseline":
+      return await asyncSafeExec("beep -f 300 -r 5")
+
+    default:
+  }
 }
