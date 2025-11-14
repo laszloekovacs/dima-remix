@@ -1,7 +1,7 @@
+import { useFetcher } from "react-router"
+import { z } from "zod"
 import { asyncSafeExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.print.$"
-import { z } from "zod"
-import { useFetcher } from "react-router"
 
 // to print:
 // lp file.txt
