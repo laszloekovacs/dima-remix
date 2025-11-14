@@ -12,7 +12,7 @@ export default function FloppyActions() {
   const fetcher = useFetcher()
 
   return (
-    <div className="p-5">
+    <>
       <h1 className="mb-4">Floppy Műveletek</h1>
 
       <fetcher.Form method="post">
@@ -20,7 +20,7 @@ export default function FloppyActions() {
           {floppyActions.map((action) => (
             <input
               key={action}
-              className="border p-1"
+              className="p-1 border"
               type="submit"
               name="action"
               value={action}
@@ -37,7 +37,7 @@ export default function FloppyActions() {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

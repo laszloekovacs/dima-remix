@@ -23,15 +23,13 @@ export default function BeepPage() {
   const fetcher = useFetcher()
 
   return (
-    <div>
-      <fetcher.Form method="post">
-        <select name="preset">
-          <option value="affirmative">affirmative</option>
-          <option value="tripple">tripple</option>
-        </select>
+    <fetcher.Form method="post">
+      <select name="preset">
+        <option value="affirmative">affirmative</option>
+        <option value="tripple">tripple</option>
+      </select>
 
-        <input type="submit" value="submit" />
-      </fetcher.Form>
-    </div>
+      <input type="submit" value="submit" />
+    </fetcher.Form>
   )
 }
