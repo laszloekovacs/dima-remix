@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-// return a string, changes every n second
+// return a string picked from the images array, changes every n second
 export default function useSlideshow(
   images: string[],
   frequency: number,
