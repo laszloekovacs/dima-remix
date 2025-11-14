@@ -7,25 +7,10 @@ import {
   ScrollRestoration,
   useNavigation,
 } from "react-router"
-
 import type { Route } from "./+types/root"
 import "./app.css"
-import SystemColors from "./components/system-colors"
-import SystemKeys from "./components/system-keys"
 import HydrateFallback from "./components/hydrate-fallback"
-
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-  },
-]
+import SystemKeys from "./components/system-keys"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const navigation = useNavigation()
@@ -39,14 +24,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-black">
-        <SystemColors>
-          {isNavigating ? (
-            <HydrateFallback />
-          ) : (
-            <SystemKeys>{children}</SystemKeys>
-          )}
-        </SystemColors>
+      <body className="font-display">
+        {isNavigating ? (
+          <HydrateFallback />
+        ) : (
+          <SystemKeys>{children}</SystemKeys>
+        )}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -75,7 +58,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="pt-16 p-4 container mx-auto font-display">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (

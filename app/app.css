@@ -50,3 +50,15 @@
 .image_enhance {
 	filter: grayscale(1);
 }
+
+@font-face {
+	font-family: JetBrainsMono;
+	font-style: normal;
+	font-weight: 400;
+	src: url("./public/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf")
+		format("truetype");
+}
+
+@theme {
+	--font-display: "JetBrainsMono", monospace;
+}
