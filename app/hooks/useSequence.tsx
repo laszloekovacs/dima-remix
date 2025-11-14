@@ -2,19 +2,16 @@ import { useEffect, useState } from "react"
 
 export const bootEvents = [
   "загрузка загрузочной ROM",
-  "------------------------",
-  "нашел ДИМУ RОМ",
-  "szovjet blokk régió nyelv modul: magyar",
-  "ROM 256Kb betöltve",
-  "система мониторинга энергопотребления",
-  "hálózat /dev/net",
-  "floppy meghajtó /dev/fd0",
-  "nyomtató /dev/lp0",
-  "merevlemez /dev/hd0",
-  "titkosító biztonsági kulcs x29 csatlakozva",
-  "dima protokoll hitelesítve titkosító kulcsal",
-  "--- figyelem: megfigyelt kapcsolat ---",
-  "hálózat hitelesítve: x29 laboratórium",
+  "нашел ДИМУ RОМ - 256Kb",
+  "[OK] szovjet blokk régió nyelv modul: magyar",
+  "[OK] ROM 256Kb betöltve",
+  "[OK] hálózat /dev/net",
+  "[OK] floppy meghajtó /dev/fd0",
+  "[OK] nyomtató /dev/lp0",
+  "[OK] merevlemez /dev/hd0",
+  "[OK] titkosító biztonsági kulcs x29 csatlakozva",
+  "Figyelem: megfigyelt kapcsolat",
+  "Rendszer indul...",
 ]
 
 // sequence with randomized stagger
@@ -56,14 +53,3 @@ export const useSequence = (
 
   return index
 }
-
-export const oldbootLines = [
-  "[  OK  ] ROM betöltése...",
-  "[  OK  ] Kernel modulok betöltése...",
-  "[  OK  ] /dev/sda1 csatolása...",
-  "[  OK  ] Hálózati interfészek aktiválása...",
-  "[  OK  ] D.I.M.A 3850 csomópont kézfogás elindítva...",
-  "[  OK  ] Távoli hozzáférés engedélyezve",
-  "...",
-  "Keretrendszer csatlakoztatása folyamatban...",
-]
