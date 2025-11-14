@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router"
 
-const links = ["pcspkr", "disk", "print"] as const
+const links = ["pcspkr", "disk", "print", "kvstore"] as const
 
 export default function ApiIndexPage() {
   return (
