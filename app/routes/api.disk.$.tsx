@@ -20,7 +20,7 @@ export default function FloppyActions() {
           {floppyActions.map((action) => (
             <input
               key={action}
-              className="p-1 border"
+              className="p-1 border hover:text-amber-500 active:bg-sky-50"
               type="submit"
               name="action"
               value={action}

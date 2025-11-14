@@ -25,7 +25,7 @@ export default function PrintApi() {
         <div className="flex flex-row gap-2 mb-4">
           {printActions.map((action) => (
             <input
-              className="p-1 border"
+              className="p-1 border hover:text-amber-500 active:bg-sky-50"
               key={action}
               type="submit"
               name="action"
