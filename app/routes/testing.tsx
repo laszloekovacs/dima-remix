@@ -1,12 +1,18 @@
-import SystemLayout from "app/components/system-layout"
+import fs from "node:fs/promises"
+import path from "node:process"
 import { useCallback, useMemo } from "react"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
-///import { useCountdownTimer } from "~/hooks/useCountdownTimer"
 import useSlideshow from "~/hooks/useSlideshow"
+import type { Route } from "./+types/testing"
 
-export default function TestingRoute(): React.ReactNode {
-  const phrases = useMemo(() => ["hello", "world", "wide", "web"], [])
-  const slide = useSlideshow(phrases, 1000)
+export const loader = async () => {
+  const images = await fs.readdir(`${path.cwd()}/public/slides`)
+
+  return images
+}
+
+export default function TestingRoute({ loaderData }: Route.ComponentProps) {
+  const slide = useSlideshow(loaderData, 1000)
 
   const report = useCallback(() => console.log("done"), [])
 
@@ -14,24 +20,13 @@ export default function TestingRoute(): React.ReactNode {
 
   return (
     <div>
-      <SystemLayout
-        heading={
-          <div className="warning-stripes background-animation">
-            предупреждение, нарушение
-          </div>
-        }
-        main={
-          <div>
-            <div>
-              <img src="https://www.picsum.dev/400/300" alt="temp" />
-            </div>
-            <p className="blink-slow">very cool</p>
-            <p>{slide}</p>
-          </div>
-        }
-        commandLine={<div></div>}
-      />
+      <p className="blink-slow">very cool</p>
+
       <span>{stopwatch && formatStopwatch(stopwatch).asString}</span>
+
+      <div className="w-[400px]">
+        <img src={`/slides/${slide}`} alt={slide} />
+      </div>
     </div>
   )
 }
