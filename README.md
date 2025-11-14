@@ -25,6 +25,8 @@ Package references:
 ## System Requirements
 
 
+images are 640px wide, in photoshop quality 8, 3 scans progressive compressed. 
+
 
 The program is tested with Lubuntu 24 on an Athlon 64 x2 with 2gb of ram. The program requires a Amd64 system and PATA interface for floppy drives
 
