@@ -12,6 +12,7 @@ import type { Route } from "./+types/root"
 import "./app.css"
 import SystemColors from "./components/system-colors"
 import SystemKeys from "./components/system-keys"
+import HydrateFallback from "./components/hydrate-fallback"
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -41,7 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-black">
         <SystemColors>
           {isNavigating ? (
-            <div>loading</div>
+            <HydrateFallback />
           ) : (
             <SystemKeys>{children}</SystemKeys>
           )}
