@@ -1,40 +1,16 @@
 import { useHotkeys } from "react-hotkeys-hook"
 import { useNavigate } from "react-router"
-import SystemLayout from "~/components/system-layout"
 
 export default function TapeSelectionScreen() {
-  return (
-    <SystemLayout
-      heading={<p>dima konzol</p>}
-      main={<DetailsScreen />}
-      commandLine={<KeyCommands />}
-    />
-  )
-}
-
-const DetailsScreen = () => {
-  return (
-    <div>
-      <p>Kiválasztott szalag: "Химера"</p>
-      <p>загруженные данные: 452Kb</p>
-
-      <p>Внимание! Память практически исчерпана</p>
-      <hr />
-      <p>1. dokumentum kinyomtatása</p>
-      <p>2. lemezmásolat készítése</p>
-    </div>
-  )
-}
-
-const KeyCommands = () => {
   const navigate = useNavigate()
 
-  useHotkeys("1", () => navigate("/print"))
-  useHotkeys("2", () => navigate("/startcopy"))
+  useHotkeys("1", () => navigate("print"))
+  useHotkeys("2", () => navigate("copy"))
 
   return (
     <div>
-      <p>parancsok: 1: nyomtatás, 2: másolás</p>
+      <p>1. nyomtatás</p>
+      <p>2. másolás floppyra</p>
     </div>
   )
 }
