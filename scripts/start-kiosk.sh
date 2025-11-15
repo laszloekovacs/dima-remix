@@ -5,7 +5,7 @@
 # xsetroot -solid "#1e90ff"  # DodgerBlue
 
 # set background image from the project
-feh --bg-scale ~/dima-remix/public/splash.jpg &
+feh --bg-scale ~/dima-remix/public/wp1.jpg &
 
 # start window manager
 openbox-session &
