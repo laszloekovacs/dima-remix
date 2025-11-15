@@ -1,3 +1,3 @@
 export default function StartCopyScreen() {
-	return <p>start copy screen</p>
+  return <p>copy screen</p>
 }
