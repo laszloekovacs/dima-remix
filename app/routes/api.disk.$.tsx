@@ -54,7 +54,7 @@ export const action = async ({ params }: Route.ActionArgs) => {
 
     case "format": {
       await asyncExec("umount /mnt/floppy")
-      return await asyncExec("mkfs.vfat /dev/fd0")
+      return await asyncExec("sudo mkfs.vfat /dev/fd0")
     }
 
     case "read":
