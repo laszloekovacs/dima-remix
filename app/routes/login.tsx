@@ -59,7 +59,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (count <= 0) {
       console.log("Access denied - lockout")
-      navigate("/lockout")
+      navigate("/lockdown")
     }
   }, [count, navigate])
 
