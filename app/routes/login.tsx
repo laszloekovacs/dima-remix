@@ -64,44 +64,42 @@ const LoginPage = () => {
   }, [count, navigate])
 
   return (
-    <div className="min-h-screen bg-black text-green-500 flex items-center justify-center p-6 font-mono">
-      <div className="w-full max-w-xl border border-green-700 p-6">
+    <div className="min-h-screen text-green-500 flex items-center justify-center p-6">
+      <div className="w-full max-w-6xl border-green-700 border-8 p-6">
         {/* Fejléc */}
-        <div className="text-sm mb-4">
-          <h1 className="text-6xl mb-2">★ Д.И.М.А 3850</h1>
-          <p>Департамент Исследований и Мобильного Архива</p>
-          <p>távoli adat központ terminál</p>
+        <div className="mb-4">
+          <h1 className="text-6xl mb-2 text-center my-6">X29 labor</h1>
+          <p className="text-3xl text-center">Távoli adat központ terminál</p>
+          <p className="text-3xl text-green-800 text-center">
+            Департамент Исследований и Мобильного Архива
+          </p>
         </div>
 
         {/* Bejelentkezés */}
         <div className="mb-6">
-          <label htmlFor="passcode" className="block text-sm mb-2">
-            Belépőkód megadása:
-          </label>
-          <Form method="post" onSubmit={handleSubmit}>
+          <p className="mb-4 text-center">Belépőkód:</p>
+          <Form method="post" onSubmit={handleSubmit} className="mb-4">
             <input
               ref={passcodeRef}
-              type="password"
+              type="text"
               id="passcode"
-              className="w-full bg-black border border-green-500 text-green-500 px-3 py-2 font-[Share_Tech_Mono] focus:outline-none focus:ring-2 focus:ring-green-700"
+              className="mx-auto block bg-black border-4 border-green-500 text-green-500 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-700 text-center"
               placeholder="••••••••"
               onBlur={() => passcodeRef.current?.focus()}
               autoComplete="false"
             />
           </Form>
-          {hadFail && (
-            <p>sikertelen belépés! Hátralévő próbálkozások: {count}</p>
-          )}
+
+          <p>Hátralévő próbálkozások: {count}</p>
         </div>
 
         {/* Lábjegyzet */}
-        <div className="text-xs my-6 border-t border-green-700 pt-4 space-y-1">
+        <div className="text-2xl my-6 border-t border-green-700 pt-4 space-y-1">
           <p>1985 Technológiai Fejlesztési Minisztérium, SZU.</p>
           <p>
             Dokumentum szám: 3850-12A | Kiadva: 1985. október 29. | Archív kód:
             STK-17/URZ
           </p>
-          <p>"A hűség az intelligencia legmagasabb formája." — X Igazgatóság</p>
         </div>
       </div>
     </div>

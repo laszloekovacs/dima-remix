@@ -8,22 +8,6 @@ export const Centered = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export const ConstrainScreen = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
-  return (
-    <div className="grid place-content-center bg-amber-950 min-h-screen">
-      <div className="w-[640px] h-[480px] bg-amber-800 p-2 text-amber-400">
-        {children}
-      </div>
-    </div>
-  )
-}
-
-// fake loading screen
-
 export default function HydrateFallback() {
   return (
     <Centered>

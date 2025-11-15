@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root"
 import "./app.css"
 import HydrateFallback from "./components/hydrate-fallback"
+import SystemColors from "./components/system-colors"
 import SystemKeys from "./components/system-keys"
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -24,11 +25,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="font-display">
+      <body>
         {isNavigating ? (
           <HydrateFallback />
         ) : (
-          <SystemKeys>{children}</SystemKeys>
+          <SystemColors>
+            <SystemKeys>{children}</SystemKeys>
+          </SystemColors>
         )}
         <ScrollRestoration />
         <Scripts />
