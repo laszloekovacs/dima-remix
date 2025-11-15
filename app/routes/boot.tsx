@@ -6,7 +6,7 @@ export default function BootSequence() {
 
   const handleDone = () => {
     setTimeout(() => {
-      navigate("/tapedetails")
+      navigate("/tape")
     }, 2000)
   }
 

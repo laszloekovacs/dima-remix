@@ -7,7 +7,6 @@ const LoginPage = () => {
   const passcodeRef = useRef<HTMLInputElement | null>(null)
   const [count, setCount] = useState<number>(3)
   const navigate = useNavigate()
-  const [hadFail, setFail] = useState<boolean>(false)
 
   // get localStorage value on client side only, useState is set on ssr too!
   useEffect(() => {
@@ -47,9 +46,6 @@ const LoginPage = () => {
           localStorage.setItem("passcode.count", newCount.toString())
           return newCount
         })
-
-        // display a warning
-        setFail(true)
       }
     },
     [navigate],
