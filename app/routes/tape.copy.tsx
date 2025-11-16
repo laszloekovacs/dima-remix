@@ -34,14 +34,7 @@ export default function StartCopyScreen() {
 // Server action
 export const action = async () => {
   try {
-    // Step 1: Check if floppy is mounted
-    const mountCheck = await asyncSafeExec(
-      "grep -q 'fd0' /proc/mounts && echo 'mounted'",
-    )
-
-    // If grep finds nothing, it exits with code 1 → considered "error" by asyncSafeExec?
-    // Let's interpret based on output or exit code more carefully.
-    // Better: check if the mount exists by listing mounts
+    // check if the mount exists by listing mounts
     const mountsResult = await asyncSafeExec("cat /proc/mounts")
     if (mountsResult.status === "error") {
       return {
@@ -50,11 +43,7 @@ export const action = async () => {
       }
     }
 
-    const isMounted =
-      mountsResult.data.includes("/dev/fd0") ||
-      mountsResult.data.includes("fd0")
-
-    if (!isMounted) {
+    if (!mountsResult.data.includes("/dev/fd0")) {
       return {
         status: "error",
         message: "Nincs floppy a meghajtóban, vagy nincs csatolva.",
