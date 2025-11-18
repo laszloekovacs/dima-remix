@@ -8,9 +8,15 @@ export default function TapeSelectionScreen() {
   useHotkeys("2", () => navigate("copy"))
 
   return (
-    <div>
-      <p>1. nyomtatás</p>
-      <p>2. másolás floppyra</p>
+    <div className="leading-normal">
+      <p>nyomjon meg egy gombot az almenuhoz:</p>
+      <p>
+        <span className="bg-amber-500 text-black px-2">1</span> - nyomtatás
+      </p>
+      <p>
+        <span className="bg-amber-500 text-black px-2">2</span> - másolás
+        floppyra
+      </p>
     </div>
   )
 }
