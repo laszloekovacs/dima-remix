@@ -1,13 +1,15 @@
 import { useCallback } from "react"
-import { useNavigate } from "react-router"
+import { useFetcher, useNavigate } from "react-router"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 
 export default function LockdownPage() {
   const navigate = useNavigate()
+  const fetcher = useFetcher()
 
   const handleTimeout = useCallback(() => {
+    fetcher.submit({}, { method: "post", action: "/api/pcspkr/lockdown" })
     navigate("/login")
-  }, [navigate])
+  }, [navigate, fetcher])
 
   const remaining = useCountdown({ seconds: 8 }, handleTimeout)
 
