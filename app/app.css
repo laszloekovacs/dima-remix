@@ -11,6 +11,7 @@
 		white 20px
 	);
 	background-size: 28px 28px;
+	opacity: 50%;
 }
 
 .background-animation {
@@ -28,10 +29,10 @@
 
 @keyframes blinkInverted {
 	from {
-		filter: opacity(100%);
+		opacity: 1;
 	}
 	to {
-		filter: opacity(0%);
+		opacity: 0;
 	}
 }
 

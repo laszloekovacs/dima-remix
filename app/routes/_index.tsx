@@ -16,8 +16,8 @@ export default function Home() {
 
         <p className="mb-4 text-center">DIMA távoli adatelérés terminál</p>
         <p>
-          folytatáshoz nyomja meg az <span className="underline">Enter</span>{" "}
-          billentyűt
+          folytatáshoz nyomja meg az{" "}
+          <span className="bg-amber-500 text-black">Enter</span> billentyűt
         </p>
       </div>
     </div>

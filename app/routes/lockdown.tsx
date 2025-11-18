@@ -19,8 +19,9 @@ export default function LockdownPage() {
         <h1 className="text-8xl text-red-500">Внимание!</h1>
 
         <p>Rendszer Lezárva!</p>
-        <p>Feloldásig hátralévő idő</p>
-        <p className="text-8xl text-red-500">
+        <p className="mb-4">Feloldásig hátralévő idő</p>
+
+        <p className="text-8xl text-red-500 blink-slow">
           {formatStopwatch(remaining).asString}
         </p>
       </div>

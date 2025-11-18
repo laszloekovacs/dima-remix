@@ -64,7 +64,7 @@ const LoginPage = () => {
       <div className="w-full max-w-6xl border-green-700 border-8 p-10">
         {/* Fejléc */}
         <div className="mb-4">
-          <h1 className="text-6xl mb-2 text-center my-6">X29 labor</h1>
+          <h1 className="text-6xl mb-2 text-center my-6">X29 лаборатория</h1>
           <p className="text-3xl text-center">Távoli adat központ terminál</p>
           <p className="text-3xl text-green-800 text-center">
             Департамент Исследований и Мобильного Архива
