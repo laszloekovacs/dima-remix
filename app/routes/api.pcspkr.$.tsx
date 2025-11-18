@@ -1,14 +1,14 @@
-import os from "node:os"
 import { useFetcher } from "react-router"
+import z from "zod"
 import { asyncSafeExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.pcspkr.$"
-import z from "zod"
 
 const beepPatterns = [
   "standard",
   "oneuptwodown",
   "inthemiddle",
   "baseline",
+  "boot",
 ] as const
 
 // create a page to generate types
@@ -66,5 +66,6 @@ export async function action({ params }: Route.ActionArgs) {
       return await asyncSafeExec("beep -f 300 -r 5")
 
     default:
+      return await asyncSafeExec("beep")
   }
 }

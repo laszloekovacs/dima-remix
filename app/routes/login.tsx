@@ -60,8 +60,8 @@ const LoginPage = () => {
   }, [count, navigate])
 
   return (
-    <div className="min-h-screen text-green-500 flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl border-green-700 border-8 p-6">
+    <div className="min-h-screen text-green-500 flex items-center justify-center p-16 overflow-hidden">
+      <div className="w-full max-w-6xl border-green-700 border-8 p-10">
         {/* Fejléc */}
         <div className="mb-4">
           <h1 className="text-6xl mb-2 text-center my-6">X29 labor</h1>
