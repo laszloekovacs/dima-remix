@@ -7,6 +7,7 @@ export default function BootSequence() {
 
   // move to next phase after a small delay
   const handleDone = () => {
+    endBoot()
     setTimeout(() => {
       navigate("/tape")
     }, 2000)
@@ -17,7 +18,7 @@ export default function BootSequence() {
     fetcher.submit({}, { method: "post", action: "/api/pcspkr/boot" })
   }
 
-  const index = useSequence(bootEvents.length, handleDone, endBoot, 100, 600)
+  const index = useSequence(bootEvents.length, handleDone, () => {}, 100, 600)
 
   return (
     <div className="flex min-h-screen justify-center align-middle bg-amber-950 text-amber-500 p-16 overflow-hidden">

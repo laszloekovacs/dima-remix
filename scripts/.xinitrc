@@ -1,8 +1,10 @@
 #!/bin/sh
 
-# Set up basic environment
-export PATH=$HOME/bin:$PATH
-export XDG_CURRENT_DESKTOP=openbox
+xrandr --output VGA-1 --mode 800x600
 
-# Start the development environment
-xterm -hold -e ~/start-kiosk.sh
+# hide mouse
+unclutter -idle 5 -root &
+
+xterm &
+
+exect twm
