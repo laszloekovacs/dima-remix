@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useNavigate } from "react-router"
-import { useCountdown } from "~/hooks/useCountdown"
+import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 
 export default function LockdownPage() {
   const navigate = useNavigate()
@@ -12,12 +12,16 @@ export default function LockdownPage() {
   const remaining = useCountdown({ seconds: 8 }, handleTimeout)
 
   return (
-    <div className="min-h-screen min-w-screen grid place-content-center">
-      <h1>Внимание!</h1>
-      <h1>Rendszer Lezárva!</h1>
+    <div className="min-h-screen min-w-screen grid place-content-center p-14 overflow-hidden">
+      <div className="w-full grid gap-2 text-center">
+        <h1 className="text-8xl text-red-500">Внимание!</h1>
 
-      <p>Feloldásig hátralévő idő</p>
-      <p>{remaining.toLocaleString("HU")}</p>
+        <p>Rendszer Lezárva!</p>
+        <p>Feloldásig hátralévő idő</p>
+        <p className="text-8xl text-red-500">
+          {formatStopwatch(remaining).asString}
+        </p>
+      </div>
     </div>
   )
 }
