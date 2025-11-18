@@ -11,11 +11,10 @@
 		white 20px
 	);
 	background-size: 28px 28px;
-	opacity: 50%;
 }
 
 .background-animation {
-	animation: scrollBackground 28s linear infinite;
+	animation: scrollBackground 12s linear infinite;
 }
 
 @keyframes scrollBackground {
