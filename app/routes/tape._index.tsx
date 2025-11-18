@@ -8,7 +8,7 @@ export default function TapeSelectionScreen() {
   useHotkeys("2", () => navigate("copy"))
 
   return (
-    <div className="leading-normal">
+    <div className="flex flex-col justify-end flex-1">
       <p>nyomjon meg egy gombot az almenuhoz:</p>
       <p>
         <span className="bg-amber-500 text-black px-2">1</span> - nyomtatás

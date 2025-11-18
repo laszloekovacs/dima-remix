@@ -1,6 +1,7 @@
 // app/routes/tape.copy.tsx (or wherever your route is)
 
 import { useHotkeys } from "react-hotkeys-hook"
+import { ImFloppyDisk } from "react-icons/im"
 import { useFetcher, useNavigate } from "react-router"
 import { asyncSafeExec } from "~/utils/exec.server"
 
@@ -23,62 +24,69 @@ export default function StartCopyScreen() {
   const isError = fetcher.data?.status === "error"
 
   return (
-    <div>
-      <p>másolás floppyra</p>
-      {fetcher.state === "submitting" && <p>Másolás folyamatban...</p>}
-      {message && <p style={{ color: isError ? "red" : "green" }}>{message}</p>}
+    <div className="flex flex-col justify-between flex-1">
+      <div>
+        <div className="flex flex-row gap-4 justify-center">
+          <ImFloppyDisk />
+        </div>
+        {fetcher.state === "submitting" && (
+          <p className="blink-slow">Másolás folyamatban...</p>
+        )}
+        {fetcher.state === "idle" && !message && (
+          <p className="text-orange-500 text-center">helyezzen be egy lemezt</p>
+        )}
+        {message && (
+          <p style={{ color: isError ? "red" : "green" }}>{message}</p>
+        )}
+      </div>
+
+      {/* bottom key shortcuts menu */}
+      <div>
+        <p>
+          <span className="bg-amber-500 text-black">ENTER</span>- Masolas
+          megkezdese
+        </p>
+        <p>
+          <span className="bg-amber-500 text-black">ESC</span> - vissza a
+          muveletek menube
+        </p>
+      </div>
     </div>
   )
 }
 
-// Server action
 export const action = async () => {
   try {
-    // check if the mount exists by listing mounts
-    const mountsResult = await asyncSafeExec("cat /proc/mounts")
-    if (mountsResult.status === "error") {
+    // --- Step 1: Try to mount the floppy ---
+    const mountResult = await asyncSafeExec("mount /dev/fd0 /mnt/floppy")
+    if (mountResult.status === "error") {
       return {
         status: "error",
-        message: "Nem sikerült ellenőrizni a meghajtókat.",
+        message:
+          "Nem sikerült csatolni a floppyt. Lehet, hogy nincs lemez a meghajtóban.",
       }
     }
 
-    if (!mountsResult.data.includes("/dev/fd0")) {
-      return {
-        status: "error",
-        message: "Nincs floppy a meghajtóban, vagy nincs csatolva.",
-      }
-    }
-
-    // Step 2: Perform copy
+    // --- Step 2: Copy files ---
     const copyResult = await asyncSafeExec(
       "cp -r ~/public/diskdata/* /mnt/floppy/",
     )
-
     if (copyResult.status === "error") {
-      // Try to unmount even if copy fails, to leave system in clean state
-      await asyncSafeExec("umount /mnt/floppy").catch(() => {})
       return {
         status: "error",
         message: `A másolás sikertelen: ${copyResult.stderr}`,
       }
     }
 
-    // Step 3: Unmount
-    const umountResult = await asyncSafeExec("umount /mnt/floppy")
-    if (umountResult.status === "error") {
-      return {
-        status: "error",
-        message: `A másolás sikerült, de a lecsatolás nem: ${umountResult.stderr}`,
-      }
-    }
-
     return {
       status: "success",
-      message: "Sikeres másolás és lecsatolás.",
+      message: "A másolás sikeres. vegye ki a lemezt",
     }
-  } catch (error) {
-    console.error("Unexpected error in action:", error)
+  } catch (err) {
+    console.error("Unexpected error:", err)
     return { status: "error", message: "Váratlan hiba történt a szerveren." }
+  } finally {
+    // --- Always try to unmount (best-effort) ---
+    await asyncSafeExec("umount /mnt/floppy").catch(() => {})
   }
 }

@@ -13,7 +13,7 @@ export default function PrintScreen() {
   // Only allow Enter if not already submitting
   useHotkeys("enter", () => {
     if (fetcher.state === "idle") {
-      fetcher.submit(null, { method: "post", action: "/print" })
+      fetcher.submit(null, { method: "post" })
     }
   })
 
@@ -22,10 +22,25 @@ export default function PrintScreen() {
   const isError = fetcher.data?.status === "error"
 
   return (
-    <div>
-      <p>nyomtatás</p>
-      {fetcher.state === "submitting" && <p>Nyomtatás folyamatban...</p>}
-      {message && <p style={{ color: isError ? "red" : "green" }}>{message}</p>}
+    <div className="flex flex-col justify-between flex-1">
+      <div>
+        <p>nyomtatás menu</p>
+        {fetcher.state === "submitting" && <p>Nyomtatás folyamatban...</p>}
+        {message && (
+          <p style={{ color: isError ? "red" : "green" }}>{message}</p>
+        )}
+      </div>
+      {/* bottom key shortcuts menu */}
+      <div>
+        <p>
+          <span className="bg-amber-500 text-black">ENTER</span>- Nyomtatas
+          megkezdese
+        </p>
+        <p>
+          <span className="bg-amber-500 text-black">ESC</span> - vissza a
+          muveletek menube
+        </p>
+      </div>
     </div>
   )
 }

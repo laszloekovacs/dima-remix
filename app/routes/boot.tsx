@@ -23,7 +23,7 @@ export default function BootSequence() {
   return (
     <div className="flex min-h-screen justify-center align-middle bg-amber-950 text-amber-500 p-16 overflow-hidden">
       <div className="w-full">
-        <p>Rendszer indítása</p>
+        <p className="blink-slow bg-black">Rendszer indítása - kerem varjon</p>
         {bootEvents.slice(0, index).map((bootEvents, i) => (
           <p key={`${i}-${bootEvents}`}>{bootEvents}</p>
         ))}
