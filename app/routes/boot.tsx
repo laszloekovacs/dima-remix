@@ -7,8 +7,8 @@ export default function BootSequence() {
 
   // move to next phase after a small delay
   const handleDone = () => {
-    endBoot()
     setTimeout(() => {
+      endBoot()
       navigate("/tape")
     }, 2000)
   }
