@@ -1,17 +1,18 @@
 import { readdir } from "node:fs/promises"
+import { useNavigate } from "react-router"
+import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 import useSlideshow from "~/hooks/useSlideshow"
 import type { Route } from "./+types/carousel"
-import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
-import { useNavigate } from "react-router"
 
 const SLIDES_PATH = "/public/slides"
+const NEXT_SCREEN = "/tape"
 
 export const loader = async () => {
   // get image filenames from disk
   const slides = await readdir(process.cwd() + SLIDES_PATH)
 
   // read duration from kvstore or set default
-  const duration = 800
+  const duration = { minutes: 1 }
 
   return {
     duration,
@@ -25,11 +26,11 @@ export default function Carousel({ loaderData }: Route.ComponentProps) {
   const navigate = useNavigate()
 
   const handleCountdownEnd = () => {
-    navigate("/tape")
+    navigate(NEXT_SCREEN)
   }
 
-  const image = useSlideshow(slides, duration)
-  const countdown = useCountdown({ seconds: 5 }, () => handleCountdownEnd())
+  const image = useSlideshow(slides, 800)
+  const countdown = useCountdown(duration, () => handleCountdownEnd())
 
   return (
     <div className="h-screen w-screen p-16 overflow-hidden">
@@ -54,4 +55,3 @@ export default function Carousel({ loaderData }: Route.ComponentProps) {
     </div>
   )
 }
-//<img src={`/slides/${image}`} alt={image} className="overflow-hidden" />
