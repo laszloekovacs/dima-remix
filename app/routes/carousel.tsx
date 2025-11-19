@@ -12,7 +12,7 @@ export const loader = async () => {
   const slides = await readdir(process.cwd() + SLIDES_PATH)
 
   // read duration from kvstore or set default
-  const duration = { minutes: 1 }
+  const duration = { seconds: 8 }
 
   return {
     duration,

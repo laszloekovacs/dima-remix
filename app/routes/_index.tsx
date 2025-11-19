@@ -2,10 +2,12 @@ import { useHotkeys } from "react-hotkeys-hook"
 import { IoMdStar } from "react-icons/io"
 import { useNavigate } from "react-router"
 
+const NEXT_SCREEN = "/boot"
+
 export default function Home() {
   const navigate = useNavigate()
-  useHotkeys("enter", () => navigate("login"))
-  useHotkeys("space", () => navigate("login"))
+  useHotkeys("enter", () => navigate(NEXT_SCREEN))
+  useHotkeys("space", () => navigate(NEXT_SCREEN))
 
   return (
     <div className="min-h-screen min-w-screen grid place-content-center">

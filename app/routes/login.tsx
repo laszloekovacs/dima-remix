@@ -2,6 +2,8 @@ import { type FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import { Form, useNavigate } from "react-router"
 
 const DEFAULT_PASSCODE = "5435" //86426
+const NEXT_SCREEN = "/carousel"
+const FAIL_SCREEN = "/lockdown"
 
 const LoginPage = () => {
   const passcodeRef = useRef<HTMLInputElement | null>(null)
@@ -38,7 +40,7 @@ const LoginPage = () => {
         // reset retries, no need but good to do
         localStorage.setItem("passcode.count", "3")
 
-        navigate("/boot")
+        navigate(NEXT_SCREEN)
       } else {
         // decrease retries count
         setCount((c) => {
@@ -55,7 +57,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (count <= 0) {
       console.log("Access denied - lockout")
-      navigate("/lockdown")
+      navigate(FAIL_SCREEN)
     }
   }, [count, navigate])
 

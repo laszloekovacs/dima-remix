@@ -1,6 +1,8 @@
 import { useFetcher, useNavigate } from "react-router"
 import { bootEvents, useSequence } from "~/hooks/useSequence"
 
+const NEXT_SCREEN = "/login"
+
 export default function BootSequence() {
   const navigate = useNavigate()
   const fetcher = useFetcher()
@@ -9,7 +11,7 @@ export default function BootSequence() {
   const handleDone = () => {
     setTimeout(() => {
       fetcher.submit({}, { method: "post", action: "/api/pcspkr/boot" })
-      navigate("/tape")
+      navigate(NEXT_SCREEN)
     }, 2000)
   }
 

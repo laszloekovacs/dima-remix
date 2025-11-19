@@ -9,7 +9,7 @@ export default function TapeSelectionScreen() {
 
   return (
     <div className="flex flex-col justify-end flex-1">
-      <p>nyomjon meg egy gombot az almenuhoz:</p>
+      <p>nyomjon meg egy gombot az almenühöz:</p>
       <p>
         <span className="bg-amber-500 text-black px-2">1</span> - nyomtatás
       </p>
