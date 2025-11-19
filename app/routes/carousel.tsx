@@ -3,6 +3,7 @@ import { useNavigate } from "react-router"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 import useSlideshow from "~/hooks/useSlideshow"
 import type { Route } from "./+types/carousel"
+import { db } from "~/utils/kvstore.server"
 
 const SLIDES_PATH = "/public/slides"
 const NEXT_SCREEN = "/tape"
@@ -12,7 +13,7 @@ export const loader = async () => {
   const slides = await readdir(process.cwd() + SLIDES_PATH)
 
   // read duration from kvstore or set default
-  const duration = { seconds: 8 }
+  const duration = { minutes: (await db.get("transferDuration")) || 1 }
 
   return {
     duration,
