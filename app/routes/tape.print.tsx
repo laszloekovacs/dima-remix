@@ -33,12 +33,12 @@ export default function PrintScreen() {
       {/* bottom key shortcuts menu */}
       <div>
         <p>
-          <span className="bg-amber-500 text-black">ENTER</span>- Nyomtatas
-          megkezdese
+          <span className="bg-amber-500 text-black">ENTER</span>- Nyomtatás
+          megkezdése
         </p>
         <p>
           <span className="bg-amber-500 text-black">ESC</span> - vissza a
-          muveletek menube
+          műveletek menübe
         </p>
       </div>
     </div>

@@ -42,7 +42,7 @@ export default function Carousel({ loaderData }: Route.ComponentProps) {
         }}
       >
         <div className="bg-black text-amber-500 p-6 border-8 border-black leading-normal overflow-hidden">
-          <p>Adatszalag betoltese</p>
+          <p>Adatszalag betöltése</p>
           <p className="text-center bg-red-500 text-black text-9xl blink-slow">
             {formatStopwatch(countdown).asString}
           </p>

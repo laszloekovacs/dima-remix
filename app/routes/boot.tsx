@@ -8,14 +8,9 @@ export default function BootSequence() {
   // move to next phase after a small delay
   const handleDone = () => {
     setTimeout(() => {
-      endBoot()
+      fetcher.submit({}, { method: "post", action: "/api/pcspkr/boot" })
       navigate("/tape")
     }, 2000)
-  }
-
-  // beep at the end of the boot sequence
-  const endBoot = () => {
-    fetcher.submit({}, { method: "post", action: "/api/pcspkr/boot" })
   }
 
   const index = useSequence(bootEvents.length, handleDone, () => {}, 100, 600)
@@ -23,7 +18,7 @@ export default function BootSequence() {
   return (
     <div className="flex min-h-screen justify-center align-middle bg-amber-950 text-amber-500 p-16 overflow-hidden">
       <div className="w-full">
-        <p className="blink-slow bg-black">Rendszer indítása - kerem varjon</p>
+        <p className="blink-slow bg-black">Rendszer indítása - kérem várjon</p>
         {bootEvents.slice(0, index).map((bootEvents, i) => (
           <p key={`${i}-${bootEvents}`}>{bootEvents}</p>
         ))}

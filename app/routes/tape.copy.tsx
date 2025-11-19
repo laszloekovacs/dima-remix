@@ -43,12 +43,12 @@ export default function StartCopyScreen() {
       {/* bottom key shortcuts menu */}
       <div>
         <p>
-          <span className="bg-amber-500 text-black">ENTER</span>- Masolas
-          megkezdese
+          <span className="bg-amber-500 text-black">ENTER</span>- Másolás
+          megkezdése
         </p>
         <p>
           <span className="bg-amber-500 text-black">ESC</span> - vissza a
-          muveletek menube
+          műveletek menübe
         </p>
       </div>
     </div>
