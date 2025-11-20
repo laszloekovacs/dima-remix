@@ -11,7 +11,7 @@ export default function SystemKeys({
   const navigate = useNavigate()
 
   useHotkeys(
-    ["alt+0", "alt+1", "alt+2, alt+3"],
+    ["alt+0", "alt+1", "alt+2", "alt+3", "alt+4"],
     (key: KeyboardEvent, hotkeysEvent: HotkeysEvent) => {
       console.log("hotkey pressed")
       switch (hotkeysEvent.hotkey) {
