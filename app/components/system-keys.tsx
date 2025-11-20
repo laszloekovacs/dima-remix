@@ -30,6 +30,10 @@ export default function SystemKeys({
         case "alt+3":
           navigate("/boot")
           break
+
+        case "alt+4":
+          navigate("/tape")
+          break
       }
     },
   )
