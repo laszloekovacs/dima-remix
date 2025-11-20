@@ -69,7 +69,7 @@ export const action = async () => {
 
     // --- Step 2: Copy files ---
     const copyResult = await asyncSafeExec(
-      "cp -r ~dima-remix/public/diskdata/* /mnt/floppy",
+      "cp -r ~/dima-remix/public/diskdata/* /mnt/floppy",
     )
     if (copyResult.status === "error") {
       return {
