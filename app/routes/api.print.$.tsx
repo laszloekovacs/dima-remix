@@ -11,7 +11,7 @@ import type { Route } from "./+types/api.print.$"
 
 // status
 // lpstat -p
-const documentToPrint = `${process.cwd()}/public/diskdata/kimera.txt`
+const documentToPrint = `~dima-remix/public/diskdata/kimera.txt`
 
 const printActions = ["print", "status"] as const
 
