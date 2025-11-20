@@ -58,7 +58,7 @@ export default function StartCopyScreen() {
 export const action = async () => {
   try {
     // --- Step 1: Try to mount the floppy ---
-    const mountResult = await asyncSafeExec("mount /dev/fd0 /mnt/floppy")
+    const mountResult = await asyncSafeExec("mount /mnt/floppy")
     if (mountResult.status === "error") {
       return {
         status: "error",
@@ -69,7 +69,7 @@ export const action = async () => {
 
     // --- Step 2: Copy files ---
     const copyResult = await asyncSafeExec(
-      "cp -r ~/public/diskdata/* /mnt/floppy/",
+      "cp -r ~dima-remix/public/diskdata/* /mnt/floppy/",
     )
     if (copyResult.status === "error") {
       return {
