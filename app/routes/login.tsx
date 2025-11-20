@@ -2,7 +2,7 @@ import { type FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import { Form, useNavigate } from "react-router"
 
 const DEFAULT_PASSCODE = "5435" //86426
-const NEXT_SCREEN = "/carousel"
+const NEXT_SCREEN = "/transfer"
 const FAIL_SCREEN = "/lockdown"
 
 const LoginPage = () => {
