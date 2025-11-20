@@ -26,12 +26,12 @@ export default function LockdownPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="min-h-screen min-w-screen grid place-content-center p-14 overflow-hidden">
       <div className="w-full grid gap-2 text-center">
-        <h1 className="text-8xl text-red-500">Внимание!</h1>
+        <h1 className="text-8xl text-amber-500">Внимание!</h1>
 
         <p>Rendszer Lezárva!</p>
         <p className="mb-4">Feloldásig hátralévő idő</p>
 
-        <p className="text-8xl text-red-500 blink-slow">
+        <p className="text-8xl text-amber-500 blink-slow">
           {formatStopwatch(remaining).asString}
         </p>
       </div>

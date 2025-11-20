@@ -36,7 +36,7 @@ export default function StartCopyScreen() {
           <p className="text-orange-500 text-center">helyezzen be egy lemezt</p>
         )}
         {message && (
-          <p style={{ color: isError ? "red" : "green" }}>{message}</p>
+          <p style={{ color: isError ? "orangered" : "green" }}>{message}</p>
         )}
       </div>
 

@@ -13,7 +13,9 @@ export const loader = async () => {
   const slides = await readdir(process.cwd() + SLIDES_PATH)
 
   // read duration from kvstore or set default
-  const duration = { minutes: (await db.get("transferDuration")) || 1 }
+  const duration = {
+    minutes: parseInt(await db.get("transferDuration"), 10) || 1,
+  }
 
   return {
     duration,
@@ -45,7 +47,7 @@ export default function Carousel({ loaderData }: Route.ComponentProps) {
       >
         <div className="bg-black text-amber-500 p-6 border-8 border-black leading-normal overflow-hidden">
           <p>Adatszalag betöltése</p>
-          <p className="text-center bg-red-500 text-black text-9xl blink-slow">
+          <p className="text-center bg-amber-500 text-black text-9xl blink-slow">
             {formatStopwatch(countdown).asString}
           </p>
           <div className="h-5">
