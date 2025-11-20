@@ -27,7 +27,7 @@ export default function PrintScreen() {
         <p>nyomtatás menu</p>
         {fetcher.state === "submitting" && <p>Nyomtatás folyamatban...</p>}
         {message && (
-          <p style={{ color: isError ? "red" : "green" }}>{message}</p>
+          <p style={{ color: isError ? "white" : "green" }}>{message}</p>
         )}
       </div>
       {/* bottom key shortcuts menu */}
@@ -70,7 +70,7 @@ export const action = async () => {
 
     // Print the document
     const printResult = await asyncSafeExec(
-      "lp ~/public/diskdata/kimera.txt", // Adjust path as needed
+      `lp${process.cwd()}/public/diskdata/kimera.txt`, // Adjust path as needed
     )
 
     if (printResult.status === "error") {
