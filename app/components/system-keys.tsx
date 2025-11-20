@@ -11,7 +11,7 @@ export default function SystemKeys({
   const navigate = useNavigate()
 
   useHotkeys(
-    ["alt+0", "alt+1", "alt+2", "alt+3", "alt+4"],
+    ["alt+0", "alt+1", "alt+2", "alt+3", "alt+4", "alt+5", "alt+6"],
     (key: KeyboardEvent, hotkeysEvent: HotkeysEvent) => {
       console.log("hotkey pressed")
       switch (hotkeysEvent.hotkey) {
@@ -33,6 +33,14 @@ export default function SystemKeys({
 
         case "alt+4":
           navigate("/tape")
+          break
+
+        case "alt+5":
+          navigate("/login")
+          break
+
+        case "alt+6":
+          navigate("/transfer")
           break
       }
     },

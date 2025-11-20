@@ -3,7 +3,7 @@ import { useHotkeys } from "react-hotkeys-hook"
 import { useFetcher, useNavigate } from "react-router"
 import { asyncSafeExec } from "~/utils/exec.server"
 
-const DOCUMENT_NAME = "kimera.pdf"
+const DOCUMENT_PATH = "~/dima-remix/public/assets/kimera_ff.pdf"
 
 export default function PrintScreen() {
   const navigate = useNavigate()
@@ -72,7 +72,7 @@ export const action = async () => {
 
     // Print the document
     const printResult = await asyncSafeExec(
-      `lp ${process.cwd()}/public/diskdata/${DOCUMENT_NAME}`, // Adjust path as needed
+      `lp ${DOCUMENT_PATH}`, // Adjust path as needed
     )
 
     if (printResult.status === "error") {
