@@ -58,20 +58,17 @@ export const action = async ({ params }: Route.ActionArgs) => {
     }
 
     case "read":
-      return await safeReaddir("/mnt/floppy")
+      return await asyncExec("ls /mnt/floppy")
 
     case "copy": {
       // set disk content directory
-      const dataDir = `${process.cwd()}/public/diskdata`
+      const dataDir = `~dima-remix/public/diskdata/*`
 
       // ensure mounting the floppy
       await asyncExec("mount /mnt/floppy")
 
       // copy files over
-      return await safeCp(dataDir, "/mnt/floppy", {
-        force: true,
-        recursive: true,
-      })
+      return await asyncExec(`cp -r ${dataDir} /mnt/floppy`)
     }
 
     default:
