@@ -1,7 +1,6 @@
 import { useFetcher } from "react-router"
 import { z } from "zod"
 import type { ErrorResult } from "~/utils/apiresult.server"
-import { safeCp, safeReaddir } from "~/utils/diskops.server"
 import { asyncExec, asyncSafeExec } from "~/utils/exec.server"
 import type { Route } from "./+types/api.disk.$"
 
