@@ -31,7 +31,7 @@ const LoginPage = () => {
       if (!passcodeRef.current?.value) return
 
       // use the local stored one or default
-      const passcode = localStorage.getItem("dima.passcode") ?? DEFAULT_PASSCODE
+      const passcode = DEFAULT_PASSCODE
 
       // compare codes
       if (passcode === passcodeRef.current?.value) {
