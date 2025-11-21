@@ -30,14 +30,12 @@ export default function StartCopyScreen() {
           <ImFloppyDisk />
         </div>
         {fetcher.state === "submitting" && (
-          <p className="blink-slow">Másolás folyamatban...</p>
+          <p className="blink-slow text-amber-500">Másolás folyamatban...</p>
         )}
         {fetcher.state === "idle" && !message && (
-          <p className="text-orange-500 text-center">helyezzen be egy lemezt</p>
+          <p className="text-amber-500 text-center">helyezzen be egy lemezt</p>
         )}
-        {message && (
-          <p style={{ color: isError ? "orangered" : "green" }}>{message}</p>
-        )}
+        {message && <p className="text-amber-500">{message}</p>}
       </div>
 
       {/* bottom key shortcuts menu */}

@@ -27,10 +27,10 @@ export default function PrintScreen() {
     <div className="flex flex-col justify-between flex-1">
       <div>
         <p>nyomtatás menu</p>
-        {fetcher.state === "submitting" && <p>Nyomtatás folyamatban...</p>}
-        {message && (
-          <p style={{ color: isError ? "white" : "green" }}>{message}</p>
+        {fetcher.state === "submitting" && (
+          <p className="bg-amber-500 text-black">Nyomtatás folyamatban...</p>
         )}
+        {message && <p className="text-amber-500">{message}</p>}
       </div>
       {/* bottom key shortcuts menu */}
       <div>
