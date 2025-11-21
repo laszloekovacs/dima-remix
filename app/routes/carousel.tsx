@@ -32,7 +32,7 @@ export default function Carousel({ loaderData }: Route.ComponentProps) {
     navigate(NEXT_SCREEN)
   }
 
-  const image = useSlideshow(slides, 800)
+  const image = useSlideshow(slides, 1300)
   const countdown = useCountdown(duration, () => handleCountdownEnd())
 
   return (
