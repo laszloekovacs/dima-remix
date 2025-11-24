@@ -1,10 +1,9 @@
 # автомат Д.И.М.А ★ A S.T.A.L.K.E.R Themed Escape Room Game Prop
 
 ## Features Todo
-- Boot screen and lock screen
-- Lockdown on 3 bad passes
-- Document screen with copy to pendrive
-- More sovietpunk aesthetics
+- remap alt, ctrl
+- limit print queue
+
 
 ## Game Flow
 Sequence of pages:
