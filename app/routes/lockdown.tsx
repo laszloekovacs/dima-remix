@@ -18,9 +18,10 @@ export default function LockdownPage({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher()
 
   const handleTimeout = useCallback(() => {
-    fetcher.submit({}, { method: "post"})
+    fetcher.submit({}, { method: "post" })
   }, [fetcher])
 
+  //const remaining = useCountdown({ seconds: 3 }, handleTimeout)
   const remaining = useCountdown(loaderData, handleTimeout)
 
   return (
@@ -39,7 +40,7 @@ export default function LockdownPage({ loaderData }: Route.ComponentProps) {
   )
 }
 
-export const action = () => {
-
+export const action = async () => {
+  await db.put("retries", "3")
   return redirect(REDIRECT_TO)
 }
