@@ -84,16 +84,16 @@ export const action = async ({ request }: Route.ActionArgs) => {
     await db.put("retries", (remaining).toString())
 
     // check if there's any left
-    if(0 <= remaining) {
+    if(remaining <= 0) {
       return redirect(FAIL_SCREEN)
     }
 
     return {
-      retries: retries -1 
+      remaining 
     }
   }
+  
   // reset retries
   await db.put("retries", "3")
-
   return redirect(NEXT_SCREEN)
 }

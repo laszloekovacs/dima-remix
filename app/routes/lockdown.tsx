@@ -1,8 +1,10 @@
 import { useCallback } from "react"
-import { useFetcher, useNavigate } from "react-router"
+import { redirect, useFetcher } from "react-router"
 import { formatStopwatch, useCountdown } from "~/hooks/useCountdown"
 import { db } from "~/utils/kvstore.server"
 import type { Route } from "./+types/lockdown"
+
+const REDIRECT_TO = "/login"
 
 // Loader to fetch lockdown duration from KV store
 export const loader = async () => {
@@ -13,13 +15,11 @@ export const loader = async () => {
 }
 
 export default function LockdownPage({ loaderData }: Route.ComponentProps) {
-  const navigate = useNavigate()
   const fetcher = useFetcher()
 
   const handleTimeout = useCallback(() => {
-    fetcher.submit({}, { method: "post", action: "/api/pcspkr/lockdown" })
-    navigate("/login")
-  }, [navigate, fetcher])
+    fetcher.submit({}, { method: "post"})
+  }, [fetcher])
 
   const remaining = useCountdown(loaderData, handleTimeout)
 
@@ -37,4 +37,9 @@ export default function LockdownPage({ loaderData }: Route.ComponentProps) {
       </div>
     </div>
   )
+}
+
+export const action = () => {
+
+  return redirect(REDIRECT_TO)
 }
