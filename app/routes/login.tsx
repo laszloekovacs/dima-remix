@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react"
-import { useFetcher } from "react-router"
+import { redirect, useFetcher } from "react-router"
 import { db } from "~/utils/kvstore.server"
 import type { Route } from "./+types/login"
 
-const DEFAULT_PASSCODE = "86426" //86426
+//const DEFAULT_PASSCODE = "86426" //86426
 const NEXT_SCREEN = "/transfer"
 const FAIL_SCREEN = "/lockdown"
 
@@ -47,6 +47,7 @@ export default async function LoginPage({ loaderData }: Route.ComponentProps) {
               ref={passcodeRef}
               type="text"
               id="passcode"
+              name="passcode"
               className="mx-auto block bg-black border-4 border-green-500 text-green-500 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-700 text-center"
               placeholder="••••••••"
               onBlur={() => passcodeRef.current?.focus()}
@@ -70,8 +71,29 @@ export default async function LoginPage({ loaderData }: Route.ComponentProps) {
   )
 }
 
-export const action = () => {
-  return {
-    status: "ok",
+export const action = async ({ request }: Route.ActionArgs) => {
+  const actionObject = await Object.fromEntries(await request.formData())
+  
+  // compare passcode, if not matching, reduce retries, otherwise navigate to next page
+  const passcode = await db.get("passcode")
+  const retries = parseInt(await db.get("retries"))
+
+  if(passcode != actionObject.passcode) {
+    // reduce retries 
+    const remaining = retries - 1
+    await db.put("retries", (remaining).toString())
+
+    // check if there's any left
+    if(0 <= remaining) {
+      return redirect(FAIL_SCREEN)
+    }
+
+    return {
+      retries: retries -1 
+    }
   }
+  // reset retries
+  await db.put("retries", "3")
+
+  return redirect(NEXT_SCREEN)
 }
