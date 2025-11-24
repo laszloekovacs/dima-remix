@@ -105,7 +105,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
   await db.put("lockdownDuration", action.lockdownDuration.toString())
   await db.put("transferDuration", action.transferDuration.toString())
   await db.put("passcode", action.passcode.toString())
-  await db.put("retries", action.passcode.toString())
+  await db.put("retries", action.retries.toString())
 
   const result = {
     lockdownDuration: await db.get("lockdownDuration"),
