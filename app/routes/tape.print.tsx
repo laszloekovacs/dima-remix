@@ -1,9 +1,10 @@
-// app/routes/print.tsx
 import { useHotkeys } from "react-hotkeys-hook"
 import { useFetcher, useNavigate } from "react-router"
 import { asyncSafeExec } from "~/utils/exec.server"
+import type { Route } from "./+types/tape.print"
 
 const DOCUMENT_PATH = "~/dima-remix/public/assets/kimera_ff.pdf"
+const CODE_PATH = "~/dima-remix/public/assets/code.txt"
 
 export default function PrintScreen() {
   const navigate = useNavigate()
@@ -11,11 +12,23 @@ export default function PrintScreen() {
 
   // Escape always works
   useHotkeys("escape", () => navigate("/tape"))
-
+  /*
   // Only allow Enter if not already submitting
   useHotkeys("enter", () => {
     if (fetcher.state === "idle") {
       fetcher.submit(null, { method: "post" })
+    }
+  })
+*/
+  useHotkeys("a", () => {
+    if (fetcher.state == "idle") {
+      fetcher.submit({ intent: "kimera" }, { method: "post" })
+    }
+  })
+
+  useHotkeys("b", () => {
+    if (fetcher.state == "idle") {
+      fetcher.submit({ intent: "code" }, { method: "post" })
     }
   })
 
@@ -35,9 +48,14 @@ export default function PrintScreen() {
       {/* bottom key shortcuts menu */}
       <div>
         <p>
-          <span className="bg-amber-500 text-black">ENTER</span>- Nyomtatás
-          megkezdése
+          <span className="bg-amber-500 text-black">a</span> - "Kimera"
+          dokumentum nyomtatása
         </p>
+        <p>
+          <span className="bg-amber-500 text-black">b</span> - 6/2 kód
+          nyomtatása
+        </p>
+        <hr />
         <p>
           <span className="bg-amber-500 text-black">ESC</span> - vissza a
           műveletek menübe
@@ -48,7 +66,20 @@ export default function PrintScreen() {
 }
 
 // Server action
-export const action = async () => {
+export const action = async ({ request }: Route.ActionArgs) => {
+  // figure out what document to print
+  const formObject = Object.fromEntries(await request.formData())
+
+  // quick hack, decide what to print
+  let fileToPrint = DOCUMENT_PATH
+
+  if (formObject.intent == "code") {
+    console.log("printing code")
+    fileToPrint = "code.txt"
+  } else {
+    console.log("printing kimera")
+  }
+
   try {
     // Verify printer is available
     const printerCheck = await asyncSafeExec("lpstat -p")
@@ -72,7 +103,7 @@ export const action = async () => {
 
     // Print the document
     const printResult = await asyncSafeExec(
-      `lp ${DOCUMENT_PATH}`, // Adjust path as needed
+      `lp ${fileToPrint}`, // Adjust path as needed
     )
 
     if (printResult.status === "error") {
@@ -82,6 +113,7 @@ export const action = async () => {
       }
     }
 
+    /*
     // Optional: Check print queue
     const queueResult = await asyncSafeExec("lpstat -o")
     if (queueResult.status === "error") {
@@ -91,7 +123,7 @@ export const action = async () => {
           "A dokumentum nyomtatásra került, de nem sikerült ellenőrizni a sorban állást.",
       }
     }
-
+*/
     return {
       status: "success",
       message: "Sikeres nyomtatási feladat.",
