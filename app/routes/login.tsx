@@ -1,65 +1,31 @@
-import { type FormEvent, useCallback, useEffect, useRef, useState } from "react"
-import { Form, useNavigate } from "react-router"
+import { useEffect, useRef } from "react"
+import { useFetcher } from "react-router"
+import { db } from "~/utils/kvstore.server"
+import type { Route } from "./+types/login"
 
 const DEFAULT_PASSCODE = "86426" //86426
 const NEXT_SCREEN = "/transfer"
 const FAIL_SCREEN = "/lockdown"
 
-const LoginPage = () => {
-  const passcodeRef = useRef<HTMLInputElement | null>(null)
-  const [count, setCount] = useState<number>(3)
-  const navigate = useNavigate()
+export const loader = async () => {
+  // get passcode, retries from kvstore and pass it to the front end code
+  const passcode = await db.get("passcode")
+  const retries = await db.get("retries")
 
-  // get localStorage value on client side only, useState is set on ssr too!
-  useEffect(() => {
-    const stored = Number(localStorage.getItem("passcode.count")) || count
-    setCount(stored)
-  })
+  return {
+    passcode,
+    retries,
+  }
+}
+
+export default async function LoginPage({ loaderData }: Route.ComponentProps) {
+  const fetcher = useFetcher()
+  const passcodeRef = useRef<HTMLInputElement | null>(null)
 
   // focus to passcode input
   useEffect(() => {
     passcodeRef.current?.focus()
   }, [])
-
-  // check code if it matches the one in the localstorage or default
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      // prevent sending it to backend
-      e.preventDefault()
-
-      // prevent submitting on empty value
-      if (!passcodeRef.current?.value) return
-
-      // use the local stored one or default
-      const passcode = DEFAULT_PASSCODE
-
-      // compare codes
-      if (passcode === passcodeRef.current?.value) {
-        console.log("Access granted")
-
-        // reset retries, no need but good to do
-        localStorage.setItem("passcode.count", "3")
-
-        navigate(NEXT_SCREEN)
-      } else {
-        // decrease retries count
-        setCount((c) => {
-          const newCount = c - 1
-          localStorage.setItem("passcode.count", newCount.toString())
-          return newCount
-        })
-      }
-    },
-    [navigate],
-  )
-
-  // check if we have retries left
-  useEffect(() => {
-    if (count <= 0) {
-      console.log("Access denied - lockout")
-      navigate(FAIL_SCREEN)
-    }
-  }, [count, navigate])
 
   return (
     <div className="min-h-screen text-green-500 flex items-center justify-center p-16 overflow-hidden">
@@ -76,7 +42,7 @@ const LoginPage = () => {
         {/* Bejelentkezés */}
         <div className="mb-6">
           <p className="mb-4 text-center">Belépőkód:</p>
-          <Form method="post" onSubmit={handleSubmit} className="mb-4">
+          <fetcher.Form method="post" className="mb-4">
             <input
               ref={passcodeRef}
               type="text"
@@ -86,9 +52,9 @@ const LoginPage = () => {
               onBlur={() => passcodeRef.current?.focus()}
               autoComplete="false"
             />
-          </Form>
+          </fetcher.Form>
 
-          <p>Hátralévő próbálkozások: {count}</p>
+          <p>Hátralévő próbálkozások: {loaderData.retries}</p>
         </div>
 
         {/* Lábjegyzet */}
@@ -104,4 +70,8 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export const action = () => {
+  return {
+    status: "ok",
+  }
+}
