@@ -4,7 +4,7 @@ import { asyncSafeExec } from "~/utils/exec.server"
 import type { Route } from "./+types/tape.print"
 
 const DOCUMENT_PATH = "~/dima-remix/public/assets/kimera_ff.pdf"
-const CODE_PATH = "~/dima-remix/public/assets/code.txt"
+const CODE_PATH = "~/dima-remix/public/diskdata/code.txt"
 
 export default function PrintScreen() {
   const navigate = useNavigate()
@@ -75,7 +75,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
   if (formObject.intent == "code") {
     console.log("printing code")
-    fileToPrint = "code.txt"
+    fileToPrint = CODE_PATH
   } else {
     console.log("printing kimera")
   }
